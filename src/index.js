@@ -13,10 +13,10 @@ class Application extends Nullstack {
   // async initiate(context) {}
   // async terminate(context) {}
 
-  render(context) {
+  render({metadata}) {
     return (
       <main>
-        <h1> Welcome to Nullstack! </h1>
+        <h1> {metadata.title} </h1>
         <a href="https://github.com/Mortaro/nullstack" target="_blank"> Read the documentation </a>
       </main>
     )
