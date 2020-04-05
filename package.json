@@ -1,0 +1,15 @@
+{
+  "name": "nullstack-application",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nullstack": "github:Mortaro/nullstack",
+    "webpack-cli": "^3.3.11"
+  },
+  "scripts": {
+    "start": "npx webpack --config node_modules/nullstack/webpack.config.js --mode=development --watch",
+    "build": "npx webpack --config node_modules/nullstack/webpack.config.js --mode=production"
+  }
+}
