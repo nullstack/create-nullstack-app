@@ -17,7 +17,7 @@ class Application extends Nullstack {
     return (
       <main>
         <h1> {metadata.title} </h1>
-        <a href="https://github.com/Mortaro/nullstack" target="_blank"> Read the documentation </a>
+        <a href="https://github.com/nullstack/nullstack" target="_blank"> Read the documentation </a>
       </main>
     )
   }

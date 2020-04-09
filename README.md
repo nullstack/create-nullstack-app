@@ -1,19 +1,5 @@
+<img src='https://raw.githubusercontent.com/nullstack/nullstack/master/nullstack.png' height='60' alt='Nullstack'>
+
 # Nullstack minimal template
 
-Replace PROJECT_NAME with your project name and use the following commands to clone this repo and start your project:
-
-```sh
-git clone https://github.com/Mortaro/nullstack-minimal-template.git PROJECT_NAME
-```
-
-```sh
-git remote rm origin
-```
-
-```sh
-npm install
-```
-
-```sh
-npm start
-```
+Refer to the [Nullstack Repository](https://github.com/nullstack/nullstack) for more information.
