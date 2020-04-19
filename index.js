@@ -5,7 +5,7 @@ const fs = require('fs');
 const packageFolder = process.argv[1].replace('index.js', '');
 const projectName = process.argv[2];
 
-const projectFolder = projectName.split(/(?=[A-Z])/).join('_').toLowerCase();
+const projectFolder = projectName.split(/(?=[A-Z])/).join('-').toLowerCase();
 
 const files = [
   'package.json',
@@ -13,7 +13,10 @@ const files = [
   'src/index.js',
   'src/index.css',
   'public/manifest.json',
-  'public/worker.js',
+  'public/worker.js'  
+]
+
+const images = [
   'public/icon-72x72.png',
   'public/icon-96x96.png',
   'public/icon-128x128.png',
@@ -33,6 +36,10 @@ for(const file of files) {
   content = content.replace(new RegExp("{{PROJECT_NAME}}", "g"), projectName);
   content = content.replace(new RegExp("{{PROJECT_SLUG}}", "g"), projectFolder);
   fs.writeFileSync(`${projectFolder}/${file}`, content);
+}
+
+for(const image of images) {
+  fs.copyFileSync(`${packageFolder}template/${image}`, `${projectFolder}/${image}`);
 }
 
 console.log(`Your Nullstack application is ready at "${projectFolder}"`);
