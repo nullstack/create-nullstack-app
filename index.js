@@ -10,6 +10,7 @@ const projectFolder = projectName.split(/(?=[A-Z])/).join('-').toLowerCase();
 const files = [
   'package.json',
   'README.md',
+  'src/Application.js',
   'src/index.js',
   'src/index.css',
   'public/manifest.json',
