@@ -3,14 +3,15 @@
 const fs = require('fs');
 
 const packageFolder = process.argv[1].replace('index.js', '');
-const projectName = process.argv[2];
+const projectFolder = process.argv[2];
 
-const projectFolder = projectName.split(/(?=[A-Z])/).join('-').toLowerCase();
+const projectName = projectFolder.split('-').join(' ').toUpperCase();
 
 const files = [
   'package.json',
   'README.md',
   'src/Application.js',
+  'src/ServiceWorker.js',
   'src/index.js',
   'src/index.css',
   'public/manifest.json',
@@ -43,4 +44,7 @@ for(const image of images) {
   fs.copyFileSync(`${packageFolder}template/${image}`, `${projectFolder}/${image}`);
 }
 
-console.log(`Your Nullstack application is ready at "${projectFolder}"`);
+console.log(`Yay! Your Nullstack application is ready... What should you do now?"`);
+console.info(`cd ${projectFolder}`);
+console.info(`npm install`);
+console.info(`npm start`);
