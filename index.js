@@ -23,6 +23,7 @@ const files = [
 
 const images = [
   'public/image-1200x630.png',
+  'public/favicon-96x96.png',
   'public/icon-72x72.png',
   'public/icon-96x96.png',
   'public/icon-128x128.png',
