@@ -18,7 +18,7 @@ const files = [
   'README.md',
   'src/Application.css',
   'src/Application.js',
-  'src/index.js'
+  'index.js'
 ]
 
 const images = [

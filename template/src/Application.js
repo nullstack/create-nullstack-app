@@ -1,5 +1,7 @@
 import Nullstack from 'nullstack';
 
+import './Application.css';
+
 class Application extends Nullstack {
 
   static async start({project}) {
