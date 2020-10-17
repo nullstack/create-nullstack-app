@@ -5,14 +5,14 @@ import './Application.css';
 class Application extends Nullstack {
 
   static async start({project}) {
-    project.name = "{{PROJECT_NAME}}";
-    project.domain = "codase.com.br";
-    project.color = "#6B46C1";
+    project.name = '{{PROJECT_NAME}}';
+    project.domain = 'codase.com.br';
+    project.color = '#6B46C1';
   }
 
-  initialize({project, page}) {
+  prepare({project, page}) {
     page.title = `${project.name} - Welcome to Nullstack!`;
-    page.locale = "pt-BR";
+    page.locale = 'pt-BR';
   }
 
   render({page}) {

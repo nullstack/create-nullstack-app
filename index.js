@@ -17,7 +17,7 @@ const files = [
   'package.json',
   'README.md',
   'src/Application.css',
-  'src/Application.js',
+  'src/Application.njs',
   'index.js'
 ]
 
