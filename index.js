@@ -6,8 +6,8 @@ const packageFolder = process.argv[1].replace('index.js', '');
 const projectFolder = process.argv[2];
 
 if(!projectFolder) {
-  console.log("You must pick a project name by running the following command:");
-  console.log('\x1b[36m%s\x1b[0m', `npx create-nullstack-app project-name`);
+  console.log('You must pick a project name by running the following command:');
+  console.log('\x1b[31m%s\x1b[0m', `npx create-nullstack-app project-name`);
   process.exit();
 }
 
@@ -40,9 +40,9 @@ fs.mkdirSync(`${projectFolder}/src`);
 fs.mkdirSync(`${projectFolder}/public`);
 
 for(const file of files) {
-  let content = fs.readFileSync(`${packageFolder}template/${file}`, "utf8");
-  content = content.replace(new RegExp("{{PROJECT_NAME}}", "g"), projectName);
-  content = content.replace(new RegExp("{{PROJECT_SLUG}}", "g"), projectFolder);
+  let content = fs.readFileSync(`${packageFolder}template/${file}`, 'utf8');
+  content = content.replace(new RegExp('{{PROJECT_NAME}}', 'g'), projectName);
+  content = content.replace(new RegExp('{{PROJECT_SLUG}}', 'g'), projectFolder);
   fs.writeFileSync(`${projectFolder}/${file}`, content);
 }
 
@@ -50,7 +50,7 @@ for(const image of images) {
   fs.copyFileSync(`${packageFolder}template/${image}`, `${projectFolder}/${image}`);
 }
 
-console.log(`Yay! Your Nullstack application is ready... What should you do now?"`);
+console.log(`Yay! Your Nullstack application is ready... What should you do now?`);
 console.log('\x1b[36m%s\x1b[0m', `cd ${projectFolder}`);
 console.log('\x1b[36m%s\x1b[0m', `npm install`);
 console.log(`Open your code editor before starting the server.`);
