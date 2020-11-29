@@ -4,4 +4,4 @@
 
 ## Welcome to Nullstack 
 
-[Read the documentation](https://github.com/nullstack/nullstack)
+[Read the documentation](https://nullstack.app/documentation)

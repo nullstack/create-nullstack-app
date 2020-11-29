@@ -18,7 +18,8 @@ const files = [
   'README.md',
   'src/Application.css',
   'src/Application.njs',
-  'index.js'
+  'index.js',
+  '.gitignore'
 ]
 
 const images = [

@@ -6,8 +6,8 @@ class Application extends Nullstack {
 
   static async start({project}) {
     project.name = '{{PROJECT_NAME}}';
-    project.domain = 'codase.com.br';
-    project.color = '#6B46C1';
+    project.domain = 'nullstack.app';
+    project.color = '#D22365';
   }
 
   prepare({project, page}) {
@@ -19,7 +19,7 @@ class Application extends Nullstack {
     return (
       <main>
         <h1> {page.title} </h1>
-        <a href="https://github.com/nullstack/nullstack" target="_blank"> Read the documentation </a>
+        <a href="https://nullstack.app/documentation" target="_blank"> Read the documentation </a>
       </main>
     )
   }
