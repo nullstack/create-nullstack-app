@@ -1,6 +1,6 @@
 import Nullstack from 'nullstack';
 
-import './Application.css';
+import './Application.scss';
 
 class Application extends Nullstack {
 
@@ -23,7 +23,6 @@ class Application extends Nullstack {
       </main>
     )
   }
-
 
 }
 

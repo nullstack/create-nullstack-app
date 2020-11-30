@@ -16,7 +16,7 @@ const projectName = projectFolder.split('-').map((w) => w.charAt(0).toUpperCase(
 const files = [
   'package.json',
   'README.md',
-  'src/Application.css',
+  'src/Application.scss',
   'src/Application.njs',
   'index.js',
   '.gitignore'
