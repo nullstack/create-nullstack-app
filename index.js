@@ -19,7 +19,7 @@ const files = [
   'src/Application.scss',
   'src/Application.njs',
   'index.js',
-  '.gitignore'
+  '_gitignore'
 ]
 
 const images = [
@@ -44,7 +44,8 @@ for(const file of files) {
   let content = fs.readFileSync(`${packageFolder}template/${file}`, 'utf8');
   content = content.replace(new RegExp('{{PROJECT_NAME}}', 'g'), projectName);
   content = content.replace(new RegExp('{{PROJECT_SLUG}}', 'g'), projectFolder);
-  fs.writeFileSync(`${projectFolder}/${file}`, content);
+  const target = `${projectFolder}/${file.replace('_', '.')}`;
+  fs.writeFileSync(target, content);
 }
 
 for(const image of images) {
