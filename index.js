@@ -1,11 +1,12 @@
 #! /usr/bin/env node
 
 const fs = require('fs');
+const path = require('path');
 
-const packageFolder = process.argv[1].replace('index.js', '');
-const projectFolder = process.argv[2];
+const packageFolder = __dirname;
+const projectFolder = path.join(process.cwd(), process.argv[2]);
 
-if(!projectFolder) {
+if (!projectFolder) {
   console.log('You must pick a project name by running the following command:');
   console.log('\x1b[31m%s\x1b[0m', `npx create-nullstack-app project-name`);
   process.exit();
@@ -40,16 +41,16 @@ fs.mkdirSync(projectFolder);
 fs.mkdirSync(`${projectFolder}/src`);
 fs.mkdirSync(`${projectFolder}/public`);
 
-for(const file of files) {
-  let content = fs.readFileSync(`${packageFolder}template/${file}`, 'utf8');
+for (const file of files) {
+  let content = fs.readFileSync(path.join(packageFolder, "template", file), 'utf8');
   content = content.replace(new RegExp('{{PROJECT_NAME}}', 'g'), projectName);
   content = content.replace(new RegExp('{{PROJECT_SLUG}}', 'g'), projectFolder);
-  const target = `${projectFolder}/${file.replace('_', '.')}`;
+  const target = path.join(projectFolder, file.replace('_', '.'));
   fs.writeFileSync(target, content);
 }
 
-for(const image of images) {
-  fs.copyFileSync(`${packageFolder}template/${image}`, `${projectFolder}/${image}`);
+for (const image of images) {
+  fs.copyFileSync(path.join(packageFolder, "template", image), path.join(projectFolder, image));
 }
 
 console.log(`Yay! Your Nullstack application is ready... What should you do now?`);
