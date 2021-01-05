@@ -5,6 +5,7 @@ const path = require('path');
 
 const packageFolder = __dirname;
 const projectFolder = path.join(process.cwd(), process.argv[2]);
+const projectSlug = process.argv[2];
 
 if (!projectFolder) {
   console.log('You must pick a project name by running the following command:');
@@ -12,7 +13,7 @@ if (!projectFolder) {
   process.exit();
 }
 
-const projectName = projectFolder.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+const projectName = projectSlug.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 
 const files = [
   'package.json',
@@ -44,7 +45,7 @@ fs.mkdirSync(`${projectFolder}/public`);
 for (const file of files) {
   let content = fs.readFileSync(path.join(packageFolder, "template", file), 'utf8');
   content = content.replace(new RegExp('{{PROJECT_NAME}}', 'g'), projectName);
-  content = content.replace(new RegExp('{{PROJECT_SLUG}}', 'g'), projectFolder);
+  content = content.replace(new RegExp('{{PROJECT_SLUG}}', 'g'), projectSlug);
   const target = path.join(projectFolder, file.replace('_', '.'));
   fs.writeFileSync(target, content);
 }
