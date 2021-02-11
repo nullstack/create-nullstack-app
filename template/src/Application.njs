@@ -4,7 +4,11 @@ import './Application.scss';
 
 class Application extends Nullstack {
 
-  static async start({project}) {
+  static async start(context) {
+    await this.startProject(context);
+  }
+
+  static async startProject({project}) {
     project.name = '{{PROJECT_NAME}}';
     project.domain = 'nullstack.app';
     project.color = '#D22365';

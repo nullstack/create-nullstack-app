@@ -55,7 +55,7 @@ for (const image of images) {
 }
 
 console.log(`Yay! Your Nullstack application is ready... What should you do now?`);
-console.log('\x1b[36m%s\x1b[0m', `cd ${projectFolder}`);
+console.log('\x1b[36m%s\x1b[0m', `cd ${projectSlug}`);
 console.log('\x1b[36m%s\x1b[0m', `npm install`);
 console.log(`Open your code editor before starting the server.`);
 console.log('\x1b[36m%s\x1b[0m', `npm start`);

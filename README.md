@@ -2,7 +2,7 @@
 
 # Nullstack minimal template
 
-Refer to the [Nullstack Repository](https://github.com/nullstack/nullstack) for more information.
+Refer to the [Nullstack Documentation](https://nullstack.app/documentation) for more information.
 
 ## License
 
