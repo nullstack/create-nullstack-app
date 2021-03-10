@@ -35,7 +35,8 @@ const images = [
   'public/icon-180x180.png',
   'public/icon-192x192.png',
   'public/icon-384x384.png',
-  'public/icon-512x512.png'
+  'public/icon-512x512.png',
+  'public/crete-round-v9-latin-regular.woff2'
 ]
 
 fs.mkdirSync(projectFolder);
