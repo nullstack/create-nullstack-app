@@ -1,0 +1,32 @@
+@font-face {
+  font-family: 'Crete Round';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''), url('/crete-round-v9-latin-regular.woff2') format('woff2');
+  font-display: swap;
+}
+
+body {
+  background-color: #2d3748;
+  color: white;
+  text-align: center;
+  font-family: "Crete Round", serif;
+  margin: 0;
+}
+
+.documentation-link {
+  color: #ff5193;
+  font-size: 1.5rem;
+}
+
+@media screen and (max-width: 1000px) {
+  .nullstack-logo {
+    width: 60vw;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .nullstack-logo {
+    width: 100vw;
+  }
+}
