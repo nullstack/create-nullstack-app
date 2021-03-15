@@ -2,24 +2,20 @@
 
 const fs = require('fs');
 const path = require('path');
-
+const readline = require("readline");
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 const packageFolder = __dirname;
-const projectFolder = path.join(process.cwd(), process.argv[2]);
-const projectSlug = process.argv[2];
-
-if (!projectFolder) {
-  console.log('You must pick a project name by running the following command:');
-  console.log('\x1b[31m%s\x1b[0m', `npx create-nullstack-app project-name`);
-  process.exit();
-}
-
-const projectName = projectSlug.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 
 const files = [
   'package.json',
   'README.md',
   'src/Application.scss',
   'src/Application.njs',
+  'src/Home.scss',
+  'src/Home.njs',
   'index.js',
   '_gitignore'
 ]
@@ -38,24 +34,89 @@ const images = [
   'public/icon-512x512.png'
 ]
 
-fs.mkdirSync(projectFolder);
-fs.mkdirSync(`${projectFolder}/src`);
-fs.mkdirSync(`${projectFolder}/public`);
+const contentReplacer = (content, name, value) => {
+  return content.replace(new RegExp(`{{PROJECT_${name}}}`, 'g'), value);
+};
 
-for (const file of files) {
-  let content = fs.readFileSync(path.join(packageFolder, "template", file), 'utf8');
-  content = content.replace(new RegExp('{{PROJECT_NAME}}', 'g'), projectName);
-  content = content.replace(new RegExp('{{PROJECT_SLUG}}', 'g'), projectSlug);
-  const target = path.join(projectFolder, file.replace('_', '.'));
-  fs.writeFileSync(target, content);
+const testName = (name) => {
+  const isValid = !!name.match(new RegExp("^(?:@[a-z0-9-*~][a-z0-9-*._~]*/)?[a-z0-9-~][a-z0-9-._~]*$", 'g'));
+
+  if (!isValid) {
+    console.log("Wait, looks like that's not a valid name, try again!");
+    console.log(name);
+    process.exit(0);
+  }
+};
+
+const run = () => {
+  const projectPath = path.join(process.cwd(), projectSlug);
+
+  fs.mkdirSync(projectPath);
+  fs.mkdirSync(`${projectPath}/src`);
+  fs.mkdirSync(`${projectPath}/public`);
+
+  for (const file of files) {
+    let content = fs.readFileSync(
+      path.join(packageFolder, "template", file),
+      'utf8'
+    );
+    content = contentReplacer(content, 'NAME', projectName);
+    content = contentReplacer(content, 'SLUG', projectSlug);
+    const target = path.join(projectPath, file.replace('_', '.'));
+    fs.writeFileSync(target, content);
+  }
+
+  for (const image of images) {
+    fs.copyFileSync(
+      path.join(packageFolder, "template", image),
+      path.join(projectPath, image)
+    );
+  }
+
+  console.log(`Yay! Your Nullstack application '${projectName}' is ready... What should you do now?\n`);
+  console.log('\x1b[36m%s\x1b[0m', `cd ${projectSlug}`);
+  console.log('\x1b[36m%s\x1b[0m', `npm install`);
+  console.log(`Open your code editor before starting the server.`);
+  console.log('\x1b[36m%s\x1b[0m', `npm start`);
 }
 
-for (const image of images) {
-  fs.copyFileSync(path.join(packageFolder, "template", image), path.join(projectFolder, image));
+const tryRun = (name) => {
+  try {
+    storeNames(name);
+    rl.close();
+    run();
+  } catch (e) {
+    if (e.code === 'EEXIST') {
+      console.log('Wait, looks like that project already exists there!');
+    } else {
+      console.log('error:', e);
+    }
+  }
 }
 
-console.log(`Yay! Your Nullstack application is ready... What should you do now?`);
-console.log('\x1b[36m%s\x1b[0m', `cd ${projectSlug}`);
-console.log('\x1b[36m%s\x1b[0m', `npm install`);
-console.log(`Open your code editor before starting the server.`);
-console.log('\x1b[36m%s\x1b[0m', `npm start`);
+const storeNames = (name) => {
+  argName = name
+    .split(' ')
+    .filter(c => c.trim())
+    .join(' ');
+
+  projectSlug = argName
+    .replace(/[\s]/g, '-')
+    .toLowerCase();
+  testName(projectSlug);
+
+  projectName = projectSlug
+    .split('-')
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+
+let projectSlug = '';
+let projectName = '';
+let argName = process.argv.slice(2).join(' ');
+
+if (!argName) {
+  rl.question("What is the name of the project? ", tryRun);
+} else {
+  tryRun(argName);
+}
