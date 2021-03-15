@@ -26,7 +26,7 @@ class Home extends Nullstack {
         <h1> {project.name} </h1>
         <p>
           We made some examples to help you getting started!
-          Take a look at the <Link href="{{PROJECT_SRC}}">src</Link> folder.
+          Take a look at the <Link href="{{PROJECT_SRC}}">src folder</Link>.
         </p>
         <span>
           Hint: we have a 
