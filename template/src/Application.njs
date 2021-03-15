@@ -8,7 +8,7 @@ class Application extends Nullstack {
     await this.startProject(context);
   }
 
-  static async startProject({project}) {
+  static async startProject({ project }) {
     project.name = '{{PROJECT_NAME}}';
     project.domain = 'localhost';
     project.color = '#D22365';
