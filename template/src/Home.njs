@@ -25,11 +25,14 @@ class Home extends Nullstack {
         <h1> {project.name} </h1>
         <p>
           We made some examples to help you getting started!
-          Take a look at the src folder.
+          Take a look at the <Link href="{{PROJECT_SRC}}">src</Link> folder.
         </p>
         <span>
           Hint: we have a 
-          <Link href="#"> VS Code Extension </Link>
+          <Link
+            href="https://marketplace.visualstudio.com/items?itemName=ChristianMortaro.vscode-nullstack"
+          > VS Code Extension
+          </Link>
         </span>
         <ul>
           <li>
