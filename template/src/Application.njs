@@ -21,7 +21,7 @@ class Application extends Nullstack {
           <link 
             href="https://fonts.gstatic.com" rel="preconnect" />
           <link 
-            href="https://fonts.googleapis.com/css2?family=Crete+Round:ital@0;1&family=Roboto:ital@0;1&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Crete+Round&family=Roboto&display=swap"
             rel="stylesheet" />
         </head> 
         <Home route="/" />
