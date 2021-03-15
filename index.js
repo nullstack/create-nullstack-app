@@ -49,7 +49,7 @@ const testName = (name) => {
 };
 
 const run = () => {
-  const projectPath = path.join(process.cwd(), argName);
+  const projectPath = path.join(process.cwd(), projectSlug);
 
   fs.mkdirSync(projectPath);
   fs.mkdirSync(`${projectPath}/src`);
@@ -74,7 +74,7 @@ const run = () => {
   }
 
   console.log(`Yay! Your Nullstack application '${projectName}' is ready... What should you do now?\n`);
-  console.log('\x1b[36m%s\x1b[0m', `cd ${argName}`);
+  console.log('\x1b[36m%s\x1b[0m', `cd ${projectSlug}`);
   console.log('\x1b[36m%s\x1b[0m', `npm install`);
   console.log(`Open your code editor before starting the server.`);
   console.log('\x1b[36m%s\x1b[0m', `npm start`);
@@ -116,7 +116,7 @@ let projectName = '';
 let argName = process.argv.slice(2).join(' ');
 
 if (!argName) {
-  rl.question("Project Name: ", tryRun);
+  rl.question("What is the name of the project? ", tryRun);
 } else {
   tryRun(argName);
 }

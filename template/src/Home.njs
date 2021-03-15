@@ -12,11 +12,7 @@ class Home extends Nullstack {
 
   renderLink({children, href}) {
     return (
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-      > 
+      <a href={href} target="_blank" rel="noopener noreferrer"> 
         {children}
       </a>
     )
@@ -25,11 +21,11 @@ class Home extends Nullstack {
   renderArticle({project}) {
     return (
       <article>
-        <Logo height={50} light />
+        <Logo height={60} light />
         <h1> {project.name} </h1>
         <p>
-          Take a look at the src folder we made
-          some examples to help you getting started! 
+          We made some examples to help you getting started!
+          Take a look at the src folder.
         </p>
         <span>
           Hint: we have a 
@@ -78,7 +74,10 @@ class Home extends Nullstack {
     return (
       <aside>
         <Link href="https://nullstack.app/waifu">
-          <img src="/nullachan.png" />
+          <img 
+            src="https://raw.githubusercontent.com/nullstack/create-nullstack-app/master/nullachan.webp" 
+            alt="Nulla-Chan: Nullstack's official waifu"
+          />
         </Link> 
       </aside>
     )
