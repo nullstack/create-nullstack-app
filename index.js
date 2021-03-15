@@ -14,6 +14,8 @@ const files = [
   'README.md',
   'src/Application.scss',
   'src/Application.njs',
+  'src/Home.scss',
+  'src/Home.njs',
   'index.js',
   '_gitignore'
 ]
@@ -29,8 +31,7 @@ const images = [
   'public/icon-180x180.png',
   'public/icon-192x192.png',
   'public/icon-384x384.png',
-  'public/icon-512x512.png',
-  'public/crete-round-v9-latin-regular.woff2'
+  'public/icon-512x512.png'
 ]
 
 const contentReplacer = (content, name, value) => {
