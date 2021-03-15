@@ -22,7 +22,9 @@ class Home extends Nullstack {
   renderArticle({ project }) {
     return (
       <article>
-        <Logo height={60} light />
+        <Link href="https://nullstack.app/">
+          <Logo height={60} light />
+        </Link>
         <h1> {project.name} </h1>
         <p>
           We made some examples to help you getting started!
