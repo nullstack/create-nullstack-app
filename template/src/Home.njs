@@ -4,21 +4,22 @@ import Logo from 'nullstack/logo';
 
 class Home extends Nullstack {
 
-  prepare({project, page}) {
+  prepare({ project, page }) {
     page.title = `${project.name} - Welcome to Nullstack!`;
     page.description = `${project.name} was made with Nullstack`;
     page.locale = 'pt-BR';
   }
 
-  renderLink({children, href}) {
+  renderLink({ children, href }) {
+    const link = href + '?ref=create-nullstack-app'
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer"> 
+      <a href={link} target="_blank" rel="noopener noreferrer"> 
         {children}
       </a>
     )
   }
 
-  renderArticle({project}) {
+  renderArticle({ project }) {
     return (
       <article>
         <Logo height={60} light />
@@ -73,9 +74,12 @@ class Home extends Nullstack {
   renderAside() {
     return (
       <aside>
+        <head>
+          <link href="https://raw.githubusercontent.com" rel="preconnect" />
+        </head> 
         <Link href="https://nullstack.app/waifu">
           <img 
-            src="https://raw.githubusercontent.com/nullstack/create-nullstack-app/master/nullachan.webp" 
+            src="https://raw.githubusercontent.com/nullstack/create-nullstack-app/master/nulla-chan.webp" 
             alt="Nulla-Chan: Nullstack's official waifu"
           />
         </Link> 
