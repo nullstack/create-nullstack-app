@@ -4,6 +4,9 @@ const fs = require('fs');
 const path = require('path');
 const packageFolder = __dirname;
 
+// locales object
+let $t = {};
+let lang = 'en-US';
 // Modules object
 const $m  = {};
 
@@ -25,7 +28,7 @@ $m.getFiles = function(directory, Files) {
     }
   });
 
-}
+};
 
 const Files  = { images: [], files: [] };
 $m.getFiles(path.join(packageFolder, "template"), Files);
@@ -34,12 +37,24 @@ $m.contentReplacer = (content, name, value) => {
   return content.replace(new RegExp(`{{PROJECT_${name}}}`, 'g'), value);
 };
 
+const replaceLangs = (content) => {
+  const langs = {
+    'pt-BR': [ '', 'en-US', `pt-BR', 'en-US` ],
+    'en-US': [ 'pt-BR', '', `en-US', 'pt-BR` ]
+  };
+  content = $m.contentReplacer(content, 'BRLINK', langs[lang][0]);
+  content = $m.contentReplacer(content, 'USLINK', langs[lang][1]);
+  content = $m.contentReplacer(content, 'LANGS', langs[lang][2]);
+  return content;
+};
+
 $m.run = (names) => {
-  const { argName, projectSlug, projectName } = names;
-  const projectPath = path.join(process.cwd(), argName);
+  const { projectSlug, projectName } = names;
+  const projectPath = path.join(process.cwd(), projectSlug);
 
   fs.mkdirSync(projectPath);
   fs.mkdirSync(`${projectPath}/src`);
+  fs.mkdirSync(`${projectPath}/src/locales`);
   fs.mkdirSync(`${projectPath}/public`);
 
   const srcFolder = 'vscode://file/' + (
@@ -56,6 +71,9 @@ $m.run = (names) => {
     content = $m.contentReplacer(content, 'SLUG', projectSlug);
     content = $m.contentReplacer(content, 'SRC', srcFolder);
     const target = path.join(projectPath, file.replace('_', '.'));
+    if (file.indexOf('Home') > -1) {
+      content = replaceLangs(content);
+    }
     fs.writeFileSync(target, content);
   }
 
@@ -66,18 +84,18 @@ $m.run = (names) => {
     );
   }
 
-  console.log(`Yay! Your Nullstack application '${projectName}' is ready... What should you do now?\n`);
-  console.log('\x1b[36m%s\x1b[0m', `cd ${argName}`);
+  console.log($t.success.isReady.replace('{projectName}', projectName));
+  console.log('\x1b[36m%s\x1b[0m', `cd ${projectSlug}`);
   console.log('\x1b[36m%s\x1b[0m', `npm install`);
-  console.log(`Open your code editor before starting the server.`);
+  console.log($t.success.openEditor);
   console.log('\x1b[36m%s\x1b[0m', `npm start`);
-}
+};
 
 $m.testName = (name) => {
   const isValid = !!name.match(new RegExp("^(?:@[a-z0-9-*~][a-z0-9-*._~]*/)?[a-z0-9-~][a-z0-9-._~]*$", 'g'));
 
   if (!isValid) {
-    console.log("Wait, looks like that's not a valid name, try again!");
+    console.log($t.error.unvalidName);
     process.exit(0);
   }
   return isValid;
@@ -100,13 +118,13 @@ $m.storeNames = (name) => {
     .join(' ');
 
   return { argName, projectSlug, projectName };
-}
+};
 
 $m.errorHandler = (e) => {
   if (e.code === 'EEXIST') {
-    console.log('Wait, looks like that project already exists there!');
+    console.log($t.error.alreadyExists);
   } else {
-    console.log('error:', e);
+    console.log($t.error.default, e);
   }
 };
 
@@ -118,6 +136,16 @@ $m.tryRun = (rl, name) => {
   } catch (e) {
     $m.errorHandler(e);
   }
+};
+
+$m.getLanguage = async () => {
+  lang = Intl.DateTimeFormat().resolvedOptions().locale;
+  lang = lang === 'pt-BR' || lang === 'en-US'
+    ? lang
+    : 'en-US';
+
+  $t = await require(path.join(packageFolder, `locales/${lang}.json`));
+  return $t;
 };
 
 module.exports = $m;
