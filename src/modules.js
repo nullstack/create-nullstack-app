@@ -42,6 +42,11 @@ $m.run = (names) => {
   fs.mkdirSync(`${projectPath}/src`);
   fs.mkdirSync(`${projectPath}/public`);
 
+  const srcFolder = 'vscode://file/' + (
+    path.join(process.cwd(), `${projectSlug}/src`)
+      .replace(/[\\]/g, '/')
+  );
+
   for (const file of Files.files) {
     let content = fs.readFileSync(
       path.join(packageFolder, "template", file),
@@ -49,6 +54,7 @@ $m.run = (names) => {
     );
     content = $m.contentReplacer(content, 'NAME', projectName);
     content = $m.contentReplacer(content, 'SLUG', projectSlug);
+    content = $m.contentReplacer(content, 'SRC', srcFolder);
     const target = path.join(projectPath, file.replace('_', '.'));
     fs.writeFileSync(target, content);
   }
