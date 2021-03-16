@@ -1,6 +1,6 @@
 import Nullstack from 'nullstack';
-
 import './Application.scss';
+import Home from './Home';
 
 class Application extends Nullstack {
 
@@ -8,22 +8,23 @@ class Application extends Nullstack {
     await this.startProject(context);
   }
 
-  static async startProject({project}) {
+  static async startProject({ project }) {
     project.name = '{{PROJECT_NAME}}';
-    project.domain = 'nullstack.app';
+    project.domain = 'localhost';
     project.color = '#D22365';
   }
 
-  prepare({project, page}) {
-    page.title = `${project.name} - Welcome to Nullstack!`;
-    page.locale = 'pt-BR';
-  }
-
-  render({page}) {
+  render() {
     return (
       <main>
-        <h1> {page.title} </h1>
-        <a href="https://nullstack.app/documentation" target="_blank"> Read the documentation </a>
+        <head>
+          <link 
+            href="https://fonts.gstatic.com" rel="preconnect" />
+          <link 
+            href="https://fonts.googleapis.com/css2?family=Crete+Round&family=Roboto&display=swap"
+            rel="stylesheet" />
+        </head> 
+        <Home route="/" />
       </main>
     )
   }

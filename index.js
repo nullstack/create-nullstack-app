@@ -13,7 +13,7 @@ const tryNameRun = (name) => $m.tryRun(rl, name);
 let argName = process.argv.slice(2).join(' ');
 
 if (!argName) {
-  rl.question("Project Name: ", tryNameRun);
+  rl.question("What is the name of the project? ", tryNameRun);
 } else {
   tryNameRun(argName);
 }
