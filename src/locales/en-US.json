@@ -1,0 +1,12 @@
+{
+  "questionName": "What is the name of the project? ",
+  "error": {
+    "default": "error:",
+    "alreadyExists": "Wait, looks like that project already exists there!",
+    "unvalidName": "Wait, looks like that's not a valid name, try again!"
+  },
+  "success": {
+    "isReady": "Yay! Your Nullstack application '{projectName}' is ready... What should you do now?\n",
+    "openEditor": "Open your code editor before starting the server."
+  }
+}

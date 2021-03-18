@@ -8,12 +8,15 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-const tryNameRun = (name) => $m.tryRun(rl, name);
+(async function() {
+  const $t = await $m.getLanguage();
+  const tryNameRun = (name) => $m.tryRun(rl, name);
 
-let argName = process.argv.slice(2).join(' ');
+  let argName = process.argv.slice(2).join(' ');
 
-if (!argName) {
-  rl.question("What is the name of the project? ", tryNameRun);
-} else {
-  tryNameRun(argName);
-}
+  if (!argName) {
+    rl.question($t.questionName, tryNameRun);
+  } else {
+    tryNameRun(argName);
+  }
+})();

@@ -4,14 +4,27 @@ import Logo from 'nullstack/logo';
 
 class Home extends Nullstack {
 
-  prepare({ project, page }) {
-    page.title = `${project.name} - Welcome to Nullstack!`;
-    page.description = `${project.name} was made with Nullstack`;
-    page.locale = 'pt-BR';
+  static async loadLang({ lang }) {
+    return require(`./locales/${lang}.json`);
+  }
+
+  async initiate(context) {
+    const { project, page, params } = context;
+    const langs = ['{{PROJECT_LANGS}}'];
+    page.locale = params.lang === "" ? langs[0] : langs[1];
+    context.$t = await this.loadLang({ lang: page.locale });
+
+    page.title = `${project.name} - ${context.$t.welcome}`;
+    page.description = `${project.name} ${context.$t.madeWith}`;
   }
 
   renderLink({ children, href }) {
-    const link = href + '?ref=create-nullstack-app'
+    const link = (
+      href.indexOf('visualstudio') > -1
+        ? href
+        : href + '?ref=create-nullstack-app'
+    );
+
     return (
       <a href={link} target="_blank" rel="noopener noreferrer"> 
         {children}
@@ -19,73 +32,80 @@ class Home extends Nullstack {
     )
   }
 
-  renderArticle({ project }) {
+  renderArticle({ project, $t, page }) {
+    const isBR = page.locale === 'pt-BR';
+
     return (
       <article>
-        <Link href="https://nullstack.app/">
+        <Link href={$t.nullstackDoc}>
           <Logo height={60} light />
         </Link>
         <h1> {project.name} </h1>
         <p>
-          We made some examples to help you getting started!
-          Take a look at the <Link href="{{PROJECT_SRC}}">src folder</Link>.
+          {$t.gettingStarted}
+          <Link href="{{PROJECT_SRC}}">
+            {$t.srcFolder}
+          </Link>.
         </p>
         <span>
-          Hint: we have a 
+          {$t.hintExtension}
           <Link
             href="https://marketplace.visualstudio.com/items?itemName=ChristianMortaro.vscode-nullstack"
-          > VS Code Extension
+          >{$t.vsExtension}
           </Link>
         </span>
         <ul>
+          {$t.links.map(link => (
+            <li>
+              <Link href={link[0]}> 
+                { link[1] }
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <span>
+          {$t.changeLang}
+        </span>
+        <ul>
           <li>
-            <Link href="https://nullstack.app/renderable-components"> 
-              🎉 Create your first component 
-            </Link>
+            <a
+              href="/{{PROJECT_BRLINK}}"
+              class={isBR && "activated-link"}
+            >
+              {$t.langs['pt-BR']}
+            </a>
           </li>
           <li>
-            <Link href="https://nullstack.app/routes-and-params"> 
-              ✨ Set your first route
-            </Link>
-          </li>
-          <li>
-            <Link href="https://nullstack.app/context"> 
-              ⚡ Define your context 
-            </Link>
-          </li>
-          <li>
-            <Link href="https://github.com/nullstack/nullstack/stargazers">
-              ⭐ Leave a star on github
-            </Link>
-          </li>
-          <li>
-            <Link href="https://youtube.com/nullstack"> 
-              🎬 Subscribe to our Youtube Channel
-            </Link>
+            <a
+              href="/{{PROJECT_USLINK}}"
+              class={!isBR && "activated-link"}
+            >
+              {$t.langs['en-US']}
+            </a>
           </li>
         </ul>
         <div>
           <span>
-            As da Vinci would say:
+            {$t.authorQuote}
           </span>
           <blockquote>
-            "Simplicity is the ultimate sophistication"
+            {$t.footerQuote}
           </blockquote>
         </div>
       </article>
     )
   }
 
-  renderAside() {
+  renderAside({ $t }) {
     return (
       <aside>
         <head>
           <link href="https://raw.githubusercontent.com" rel="preconnect" />
         </head> 
-        <Link href="https://nullstack.app/waifu">
+        <Link href={$t.nulla.link}>
           <img 
             src="https://raw.githubusercontent.com/nullstack/create-nullstack-app/master/nulla-chan.webp" 
-            alt="Nulla-Chan: Nullstack's official waifu"
+            alt={$t.nulla.altImage}
           />
         </Link> 
       </aside>

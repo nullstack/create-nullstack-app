@@ -29,6 +29,11 @@ article {
     display: inline-block;
     padding: 0.2em 0.5em;
     margin-bottom: 0.4em;
+
+    &.activated-link {
+      color: #bdbdbd;
+      cursor: initial;
+    }
   }
 }
 
