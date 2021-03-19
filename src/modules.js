@@ -9,8 +9,14 @@ lang = (lang === 'pt-BR' || lang === 'en-US')
   ? lang
   : 'en-US';
 
+function getLanguage(extra = '') {
+  return require(
+    path.join(packageFolder, `locales/${extra}${lang}.json`)
+  );
+}
 // locales object
-const i18n = require(path.join(packageFolder, `locales/${lang}.json`));
+const i18n = getLanguage();
+const i18nTemplate = getLanguage('template/');
 
 // Modules object
 const Nulla = {};
@@ -38,18 +44,31 @@ Nulla.getFiles = function(directory, Files) {
 const Files  = { images: [], files: [] };
 Nulla.getFiles(path.join(packageFolder, "template"), Files);
 
-Nulla.contentReplacer = (content, name, value) => {
-  return content.replace(new RegExp(`{{PROJECT_${name}}}`, 'g'), value);
+Nulla.contentReplacer = (content, name, value, mainName) => {
+  mainName = mainName || 'PROJECT';
+  return content.replace(new RegExp(`{{${mainName}_${name}}}`, 'g'), value);
 };
 
 const replaceLangs = (content) => {
-  const langs = {
-    'pt-BR': [ '', 'en-US', `pt-BR', 'en-US` ],
-    'en-US': [ 'pt-BR', '', `en-US', 'pt-BR` ]
+  const i18nReplacer = (name, value) => {
+    content = Nulla.contentReplacer(content, name, value, 'i18n');
   };
-  content = Nulla.contentReplacer(content, 'BRLINK', langs[lang][0]);
-  content = Nulla.contentReplacer(content, 'USLINK', langs[lang][1]);
-  content = Nulla.contentReplacer(content, 'LANGS', langs[lang][2]);
+
+  Object.entries(i18nTemplate).forEach(v => {
+    if (v[0] === 'links') {
+      return v[1].forEach((link, i) => {
+        i18nReplacer(`link${i}:0`, link[0]);
+        i18nReplacer(`link${i}:1`, link[1]);
+      });
+    }
+    if (v[0] === 'nulla') {
+      i18nReplacer('nulla.link', v[1].link);
+      i18nReplacer(`nulla.altImage`, v[1].altImage);
+      return;
+    }
+    i18nReplacer(v[0], v[1]);
+  });
+
   return content;
 };
 
@@ -59,7 +78,6 @@ Nulla.run = (names) => {
 
   fs.mkdirSync(projectPath);
   fs.mkdirSync(`${projectPath}/src`);
-  fs.mkdirSync(`${projectPath}/src/locales`);
   fs.mkdirSync(`${projectPath}/public`);
 
   const srcFolder = 'vscode://file/' + (
@@ -74,9 +92,10 @@ Nulla.run = (names) => {
     );
     content = Nulla.contentReplacer(content, 'NAME', projectName);
     content = Nulla.contentReplacer(content, 'SLUG', projectSlug);
-    content = Nulla.contentReplacer(content, 'SRC', srcFolder);
     const target = path.join(projectPath, file.replace('_', '.'));
     if (file.indexOf('Home') > -1) {
+      content = Nulla.contentReplacer(content, 'SRC', srcFolder);
+      content = Nulla.contentReplacer(content, 'LANG', lang);
       content = replaceLangs(content);
     }
     fs.writeFileSync(target, content);

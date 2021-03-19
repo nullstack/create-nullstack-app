@@ -24,7 +24,7 @@ class Application extends Nullstack {
             href="https://fonts.googleapis.com/css2?family=Crete+Round&family=Roboto&display=swap"
             rel="stylesheet" />
         </head> 
-        <Home route="/:lang" />
+        <Home route="/" />
       </main>
     )
   }

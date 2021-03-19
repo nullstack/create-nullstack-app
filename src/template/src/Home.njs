@@ -4,18 +4,10 @@ import Logo from 'nullstack/logo';
 
 class Home extends Nullstack {
 
-  static async loadLang({ lang }) {
-    return require(`./locales/${lang}.json`);
-  }
-
-  async initiate(context) {
-    const { project, page, params } = context;
-    const langs = ['{{PROJECT_LANGS}}'];
-    page.locale = params.lang === "" ? langs[0] : langs[1];
-    context.$t = await this.loadLang({ lang: page.locale });
-
-    page.title = `${project.name} - ${context.$t.welcome}`;
-    page.description = `${project.name} ${context.$t.madeWith}`;
+  prepare({ project, page }) {
+    page.title = `${project.name} - {{i18n_welcome}}`;
+    page.description = `${project.name} {{i18n_madeWith}}`;
+    page.locale = '{{PROJECT_LANG}}';
   }
 
   renderLink({ children, href }) {
@@ -26,92 +18,86 @@ class Home extends Nullstack {
     );
 
     return (
-      <a href={link} target="_blank" rel="noopener noreferrer"> 
+      <a href={link} target="_blank" rel="noopener noreferrer">
         {children}
       </a>
     )
   }
 
-  renderArticle({ project, $t, page }) {
-    const isBR = page.locale === 'pt-BR';
-
+  renderArticle({ project }) {
     return (
       <article>
-        <Link href={$t.nullstackDoc}>
+        <Link href="{{i18n_nullstackDoc}}">
           <Logo height={60} light />
         </Link>
         <h1> {project.name} </h1>
         <p>
-          {$t.gettingStarted}
-          <Link href="{{PROJECT_SRC}}">
-            {$t.srcFolder}
+          {{i18n_gettingStarted}}<Link href="{{PROJECT_SRC}}">
+            {{i18n_srcFolder}}
           </Link>.
         </p>
         <span>
-          {$t.hintExtension}
+          {{i18n_hintExtension}}
           <Link
             href="https://marketplace.visualstudio.com/items?itemName=ChristianMortaro.vscode-nullstack"
-          >{$t.vsExtension}
+          >{{i18n_vsExtension}}
           </Link>
         </span>
         <ul>
-          {$t.links.map(link => (
-            <li>
-              <Link href={link[0]}> 
-                { link[1] }
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <span>
-          {$t.changeLang}
-        </span>
-        <ul>
           <li>
-            <a
-              href="/{{PROJECT_BRLINK}}"
-              class={isBR && "activated-link"}
-            >
-              {$t.langs['pt-BR']}
-            </a>
+            <Link href="{{i18n_link0:0}}">
+              {{i18n_link0:1}}
+            </Link>
           </li>
           <li>
-            <a
-              href="/{{PROJECT_USLINK}}"
-              class={!isBR && "activated-link"}
-            >
-              {$t.langs['en-US']}
-            </a>
+            <Link href="{{i18n_link1:0}}">
+              {{i18n_link1:1}}
+            </Link>
+          </li>
+          <li>
+            <Link href="{{i18n_link2:0}}">
+              {{i18n_link2:1}}
+            </Link>
+          </li>
+          <li>
+            <Link href="{{i18n_link3:0}}">
+              {{i18n_link3:1}}
+            </Link>
+          </li>
+          <li>
+            <Link href="{{i18n_link4:0}}">
+              {{i18n_link4:1}}
+            </Link>
           </li>
         </ul>
         <div>
           <span>
-            {$t.authorQuote}
+            {{i18n_authorQuote}}
           </span>
           <blockquote>
-            {$t.footerQuote}
+            {{i18n_footerQuote}}
           </blockquote>
         </div>
       </article>
     )
   }
 
-  renderAside({ $t }) {
+  renderAside() {
     return (
       <aside>
         <head>
           <link href="https://raw.githubusercontent.com" rel="preconnect" />
-        </head> 
-        <Link href={$t.nulla.link}>
-          <img 
-            src="https://raw.githubusercontent.com/nullstack/create-nullstack-app/master/nulla-chan.webp" 
-            alt={$t.nulla.altImage}
+        </head>
+        <Link href="{{i18n_nulla.link}}">
+          <img
+            src="https://raw.githubusercontent.com/nullstack/create-nullstack-app/master/nulla-chan.webp"
+            alt="{{i18n_nulla.altImage}}"
           />
-        </Link> 
+        </Link>
       </aside>
     )
   }
-  
+
   render() {
     return (
       <section>
