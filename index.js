@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-const $m = require('./src/modules');
+const { Nulla, i18n } = require('./src/modules');
 
 const readline = require("readline");
 const rl = readline.createInterface({
@@ -8,15 +8,12 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-(async function() {
-  const $t = await $m.getLanguage();
-  const tryNameRun = (name) => $m.tryRun(rl, name);
+const tryNameRun = (name) => Nulla.tryRun(rl, name);
 
-  let argName = process.argv.slice(2).join(' ');
+let argName = process.argv.slice(2).join(' ');
 
-  if (!argName) {
-    rl.question($t.questionName, tryNameRun);
-  } else {
-    tryNameRun(argName);
-  }
-})();
+if (!argName) {
+  rl.question(i18n.questionName, tryNameRun);
+} else {
+  tryNameRun(argName);
+}

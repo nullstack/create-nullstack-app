@@ -1,11 +1,11 @@
-const $m = require('../src/modules');
+const { Nulla, i18n } = require('../src/modules');
 const fs = require('fs');
 const path = require('path');
 const mock = require('mock-fs');
 
 test('testName do nothing if name is valid', () => {
   process.exit = jest.fn();
-  const valids = ['project-name', 'projectname'].filter(n => $m.testName(n));
+  const valids = ['project-name', 'projectname'].filter(n => Nulla.testName(n));
 
   expect(valids.length).toBe(2);
   expect(process.exit).not.toBeCalled();
@@ -14,7 +14,7 @@ test('testName do nothing if name is valid', () => {
 test('testName exits process and warns if name is invalid', () => {
   process.exit = jest.fn();
   console.log = jest.fn();
-  const valid = $m.testName('Project');
+  const valid = Nulla.testName('Project');
 
   expect(valid).toBe(false);
   expect(console.log).toBeCalled();
@@ -39,7 +39,7 @@ test('storeNames formats and return names', () => {
   ];
 
   names.forEach((name) => {
-    const formatted = $m.storeNames(name[0]);
+    const formatted = Nulla.storeNames(name[0]);
     expect(formatted).toStrictEqual(name[1]);
   });
   expect(process.exit).not.toBeCalled();
@@ -53,7 +53,7 @@ test('storeNames calls process.exit if projectSlug is invalid', () => {
     `/Project`
   ];
 
-  names.forEach($m.storeNames);
+  names.forEach(Nulla.storeNames);
   expect(process.exit).toBeCalledTimes(3);
 });
 
@@ -61,15 +61,13 @@ test(
   'errorHandler warns if projectFolder already exists otherwise shows all',
   () => {
   console.log = jest.fn();
-  $m.errorHandler({ code: 'EEXIST'});
-  expect(console.log).toBeCalledWith(
-    'Wait, looks like that project already exists there!'
-  );
+  Nulla.errorHandler({ code: 'EEXIST'});
+  expect(console.log).toBeCalledWith(i18n.error.alreadyExists);
 
   console.log = jest.fn();
   const otherError = { code: 'OTHER'};
-  $m.errorHandler(otherError);
-  expect(console.log).toBeCalledWith('error:', otherError);
+  Nulla.errorHandler(otherError);
+  expect(console.log).toBeCalledWith(i18n.error.default, otherError);
 });
 
 test('contentReplacer replaces content based on regex', () => {
@@ -83,7 +81,7 @@ test('contentReplacer replaces content based on regex', () => {
   ];
 
   contents.forEach(v => {
-    const content = $m.contentReplacer(...v.slice(0, 3));
+    const content = Nulla.contentReplacer(...v.slice(0, 3));
     expect(content).toBe(v.slice(3)[0]);
   });
 });
@@ -103,7 +101,7 @@ describe("functions using filesystem", () => {
     });
 
     const Files  = { images: [], files: [] };
-    $m.getFiles(path.join(__dirname, '../src/template'), Files);
+    Nulla.getFiles(path.join(__dirname, '../src/template'), Files);
     const files = projectFilesRoot;
 
     expect(
@@ -125,22 +123,22 @@ describe("functions using filesystem", () => {
       }
     });
 
-    $m.run(getNamesObject('Project', 'project', 'Project'));
+    Nulla.run(getNamesObject('Project', 'project', 'Project'));
 
     const files = fs.readdirSync(path.join(__dirname, '../'));
-    expect(files.includes('Project')).toBeTruthy();
+    expect(files.includes('project')).toBeTruthy();
 
     let rootFiles = [
       ...projectFilesRoot.slice(0, 3),
       '.gitignore', 'public', 'src'
     ];
 
-    const projectFiles = fs.readdirSync(path.join(__dirname, '../Project'));
+    const projectFiles = fs.readdirSync(path.join(__dirname, '../project'));
     expect(
       rootFiles.filter(file => projectFiles.includes(file)).length === 6
     ).toBeTruthy();
 
-    const srcFiles = fs.readdirSync(path.join(__dirname, '../Project/src'));
+    const srcFiles = fs.readdirSync(path.join(__dirname, '../project/src'));
     expect(srcFiles.includes('Application.njs')).toBeTruthy();
   });
 
@@ -148,7 +146,7 @@ describe("functions using filesystem", () => {
     'tryRun() should close rl, run() and throw if project already exists',
     async () => {
     const rl = { close: jest.fn() };
-    const mockedRun = jest.spyOn($m, 'run');
+    const mockedRun = jest.spyOn(Nulla, 'run');
     mock({
       [path.join(__dirname, '../Project')]: {},
       [path.join(__dirname, '../src')]: {
@@ -156,17 +154,17 @@ describe("functions using filesystem", () => {
       }
     });
 
-    $m.tryRun(rl, 'Project');
+    Nulla.tryRun(rl, 'Project');
     expect(rl.close).toBeCalled();
-    expect($m.run).toBeCalledWith(
+    expect(Nulla.run).toBeCalledWith(
       getNamesObject('Project', 'project', 'Project')
     );
 
     mockedRun.mockRestore();
-    $m.errorHandler = jest.fn();
-    $m.tryRun(rl, 'Project');
+    Nulla.errorHandler = jest.fn();
+    Nulla.tryRun(rl, 'Project');
 
-    expect($m.errorHandler).toBeCalled();
+    expect(Nulla.errorHandler).toBeCalled();
   });
 
   afterEach(mock.restore);
