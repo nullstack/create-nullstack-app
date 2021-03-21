@@ -2,10 +2,10 @@
   "welcome": "Nulla-chan te dá as boas vindas!",
   "madeWith": "foi feito com Nullstack",
   "nullstackDoc": "https://nullstack.app/pt-br",
-  "gettingStarted": "Fizemos alguns exemplos para te ajudar a começar! Dê uma olhada na ",
+  "gettingStarted": "Fizemos alguns exemplos para te ajudar a começar! Dê uma olhada na",
   "srcFolder": "pasta src",
-  "hintExtension": "Dica: nós temos uma ",
-  "vsExtension": " Extensão para VS Code",
+  "hintExtension": "Dica: nós temos uma",
+  "vsExtension": "Extensão para VS Code",
   "links": [
     [
       "https://nullstack.app/pt-br/componentes-renderizaveis",
