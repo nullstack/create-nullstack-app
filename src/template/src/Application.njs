@@ -14,16 +14,22 @@ class Application extends Nullstack {
     project.color = '#D22365';
   }
 
+  renderHead() {
+    return (
+      <head>
+        <link 
+          href="https://fonts.gstatic.com" rel="preconnect" />
+        <link 
+          href="https://fonts.googleapis.com/css2?family=Crete+Round&family=Roboto&display=swap"
+          rel="stylesheet" />
+      </head> 
+    )
+  }
+
   render() {
     return (
       <main>
-        <head>
-          <link 
-            href="https://fonts.gstatic.com" rel="preconnect" />
-          <link 
-            href="https://fonts.googleapis.com/css2?family=Crete+Round&family=Roboto&display=swap"
-            rel="stylesheet" />
-        </head> 
+        <Head />
         <Home route="/" />
       </main>
     )
