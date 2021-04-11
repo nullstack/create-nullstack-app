@@ -93,11 +93,9 @@ Nulla.run = (names) => {
     content = Nulla.contentReplacer(content, 'NAME', projectName);
     content = Nulla.contentReplacer(content, 'SLUG', projectSlug);
     const target = path.join(projectPath, file.replace('_', '.'));
-    if (file.indexOf('Home') > -1) {
-      content = Nulla.contentReplacer(content, 'SRC', srcFolder);
-      content = Nulla.contentReplacer(content, 'LANG', lang);
-      content = replaceLangs(content);
-    }
+    content = Nulla.contentReplacer(content, 'SRC', srcFolder);
+    content = Nulla.contentReplacer(content, 'LANG', lang);
+    content = replaceLangs(content);
     fs.writeFileSync(target, content);
   }
 

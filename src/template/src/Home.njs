@@ -7,7 +7,6 @@ class Home extends Nullstack {
   prepare({ project, page }) {
     page.title = `${project.name} - {{i18n_welcome}}`;
     page.description = `${project.name} {{i18n_madeWith}}`;
-    page.locale = '{{PROJECT_LANG}}';
   }
 
   renderLink({ children, href }) {

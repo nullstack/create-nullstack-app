@@ -4,14 +4,8 @@ import Home from './Home';
 
 class Application extends Nullstack {
 
-  static async start(context) {
-    await this.startProject(context);
-  }
-
-  static async startProject({ project }) {
-    project.name = '{{PROJECT_NAME}}';
-    project.domain = 'localhost';
-    project.color = '#D22365';
+  prepare({ page }) {
+    page.locale = '{{PROJECT_LANG}}';
   }
 
   renderHead() {
