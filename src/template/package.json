@@ -5,10 +5,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nullstack": "~0.10.0"
+    "nullstack": "~0.11.0"
   },
   "scripts": {
-    "start": "npx webpack --config node_modules/nullstack/webpack.config.js --mode=development --watch",
-    "build": "npx webpack --config node_modules/nullstack/webpack.config.js --mode=production"
+    "start": "npx nullstack start",
+    "build": "npx nullstack build --mode=ssr"
   }
 }
