@@ -2,10 +2,11 @@
   "welcome": "Welcome to Nullstack!",
   "madeWith": "was made with Nullstack",
   "nullstackDoc": "https://nullstack.app/",
+  "startupDoc": "https://nullstack.app/application-startup",
   "gettingStarted": "We made some examples to help you getting started! Take a look at the",
   "srcFolder": "src folder",
   "hintExtension": "Hint: we have a",
-  "vsExtension":  "VS Code Extension",
+  "vsExtension": "VS Code Extension",
   "links": [
     [
       "https://nullstack.app/renderable-components",
