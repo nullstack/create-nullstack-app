@@ -14,7 +14,7 @@ Copy the environment sample to a .env file
 NULLSTACK_PROJECT_NAME="[dev] {{PROJECT_NAME}}"
 NULLSTACK_PROJECT_DOMAIN="localhost"
 NULLSTACK_PROJECT_COLOR="#D22365"
-NULLSTACK_SERVER_PORT="5000"
+NULLSTACK_SERVER_PORT="3000"
 ```
 
 Run the app in development mode:
