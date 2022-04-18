@@ -5,7 +5,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nullstack": "~0.14.0"
+    "nullstack": "~0.15.0"
   },
   "scripts": {
     "start": "npx nullstack start",
