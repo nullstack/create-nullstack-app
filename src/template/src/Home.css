@@ -16,13 +16,12 @@ article {
   width: 100%;
 }
 
-article > * + * {
+article>*+* {
   margin-top: 1em;
   display: block;
 }
 
-article h1,
-article blockquote {
+article h1 {
   font-family: 'Crete Round', serif;
   letter-spacing: 1px;
 }
