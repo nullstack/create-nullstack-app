@@ -87,7 +87,7 @@ test('contentReplacer replaces content based on regex', () => {
 });
 
 const projectFilesRoot = [
-  'package.json', 'index.js', 'README.md', '_gitignore'
+  'package.json', 'server.js', 'README.md', '_gitignore'
 ];
 
 describe("functions using filesystem", () => {
@@ -95,7 +95,7 @@ describe("functions using filesystem", () => {
   test('getFiles should get all template files', () => {
     mock({
       [path.join(__dirname, '../src/template')]: {
-        'package.json': '', 'index.js': '', 'README.md': '', '_gitignore': '',
+        'package.json': '', 'server.js': '', 'README.md': '', '_gitignore': '',
         public: { image1: '', image2: '' }
       }
     });
@@ -104,13 +104,13 @@ describe("functions using filesystem", () => {
     Nulla.getFiles(path.join(__dirname, '../src/template'), Files);
     const files = projectFilesRoot;
 
+    expect(Files.files.length).toBe(4);
     expect(
-      Files.files.length === 4 &&
-      files.filter(file => Files.files.includes(file)).length === 4
-    ).toBeTruthy();
+      files.filter(file => Files.files.includes(file)).length
+    ).toBe(4);
 
+    expect(Files.images.length).toBe(2);
     expect(
-      Files.images.length === 2 &&
       Files.images[0].includes('public') &&
       Files.images[1].includes('public')
     ).toBeTruthy();
@@ -135,11 +135,11 @@ describe("functions using filesystem", () => {
 
     const projectFiles = fs.readdirSync(path.join(__dirname, '../project'));
     expect(
-      rootFiles.filter(file => projectFiles.includes(file)).length === 6
-    ).toBeTruthy();
+      rootFiles.filter(file => projectFiles.includes(file)).length
+    ).toBe(6);
 
     const srcFiles = fs.readdirSync(path.join(__dirname, '../project/src'));
-    expect(srcFiles.includes('Application.njs')).toBeTruthy();
+    expect(srcFiles.includes('Application.jsx')).toBeTruthy();
   });
 
   test(
@@ -154,15 +154,16 @@ describe("functions using filesystem", () => {
       }
     });
 
-    Nulla.tryRun(rl, 'Project');
+    Nulla.tryRun(rl, 'Project', false);
     expect(rl.close).toBeCalled();
     expect(Nulla.run).toBeCalledWith(
-      getNamesObject('Project', 'project', 'Project')
+      getNamesObject('Project', 'project', 'Project'),
+      false
     );
 
     mockedRun.mockRestore();
     Nulla.errorHandler = jest.fn();
-    Nulla.tryRun(rl, 'Project');
+    Nulla.tryRun(rl, 'Project', false);
 
     expect(Nulla.errorHandler).toBeCalled();
   });
