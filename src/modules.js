@@ -100,9 +100,14 @@ Nulla.run = (names) => {
   }
 
   for (const image of Files.images) {
+    let destName = image;
+    if (image.match(new RegExp(`nulla(?!.*${lang})`))) continue;
+    if (image.match(/nulla-chan/)) {
+      destName = path.join(image, '../nulla-chan.webp');
+    }
     fs.copyFileSync(
       path.join(packageFolder, "template", image),
-      path.join(projectPath, image)
+      path.join(projectPath, destName)
     );
   }
 
