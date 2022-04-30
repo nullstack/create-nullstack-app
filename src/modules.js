@@ -72,7 +72,7 @@ const replaceLangs = (content) => {
   return content;
 };
 
-Nulla.run = (names) => {
+Nulla.run = (names, isTS) => {
   const { projectSlug, projectName } = names;
   const projectPath = path.join(process.cwd(), projectSlug);
 
@@ -86,6 +86,7 @@ Nulla.run = (names) => {
   );
 
   for (const file of Files.files) {
+    if (file.match(new RegExp(`.${isTS ? 'jsx' : 'tsx'}$`))) continue;
     let content = fs.readFileSync(
       path.join(packageFolder, "template", file),
       'utf8'
@@ -100,9 +101,14 @@ Nulla.run = (names) => {
   }
 
   for (const image of Files.images) {
+    let destName = image;
+    if (image.match(new RegExp(`nulla(?!.*${lang})`))) continue;
+    if (image.match(/nulla-chan/)) {
+      destName = path.join(image, '../nulla-chan.webp');
+    }
     fs.copyFileSync(
       path.join(packageFolder, "template", image),
-      path.join(projectPath, image)
+      path.join(projectPath, destName)
     );
   }
 
@@ -150,14 +156,25 @@ Nulla.errorHandler = (e) => {
   }
 };
 
-Nulla.tryRun = (rl, name) => {
+Nulla.tryRun = (rl, name, isTS) => {
   try {
     rl.close();
     const names = Nulla.storeNames(name);
-    Nulla.run(names);
+    Nulla.run(names, isTS);
   } catch (e) {
     Nulla.errorHandler(e);
   }
+};
+
+Nulla.isTS = (args) => {
+  const tsIdx = args.includes('--ts')
+    ? args.indexOf('--ts')
+    : args.indexOf('--typescript');
+  if (tsIdx > -1) {
+    args.splice(tsIdx, 1);
+    return true;
+  }
+  return false;
 };
 
 module.exports = { Nulla, i18n };
