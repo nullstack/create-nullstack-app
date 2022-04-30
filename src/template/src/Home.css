@@ -16,7 +16,7 @@ article {
   width: 100%;
 }
 
-article>*+* {
+article > * + * {
   margin-top: 1em;
   display: block;
 }

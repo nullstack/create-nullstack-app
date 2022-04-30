@@ -65,14 +65,6 @@ class Home extends Nullstack {
               </Link>
             </li>
           </ul>
-          <div>
-            <span>
-              {{i18n_authorQuote}}
-            </span>
-            <blockquote>
-              {{i18n_footerQuote}}
-            </blockquote>
-          </div>
         </article>
         <aside>
           <Link href="{{i18n_nulla.link}}">

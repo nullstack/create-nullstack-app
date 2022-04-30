@@ -8,9 +8,11 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-const tryNameRun = (name) => Nulla.tryRun(rl, name);
+let args = process.argv.slice(2);
+const isTS = Nulla.isTS(args);
 
-let argName = process.argv.slice(2).join(' ');
+const tryNameRun = (name) => Nulla.tryRun(rl, name, isTS);
+let argName = args.join(' ');
 
 if (!argName) {
   rl.question(i18n.questionName, tryNameRun);
