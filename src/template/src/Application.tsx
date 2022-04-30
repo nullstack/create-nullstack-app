@@ -1,10 +1,13 @@
 import Nullstack from 'nullstack';
+import type { NullstackClientContext } from 'nullstack/types';
 import './Application.css';
 import Home from './Home';
 
+declare function Head(): typeof Application.prototype.renderHead
+
 class Application extends Nullstack {
 
-  prepare({ page }) {
+  prepare({ page }: NullstackClientContext) {
     page.locale = '{{PROJECT_LANG}}';
   }
 
