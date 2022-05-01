@@ -1,5 +1,4 @@
-import Nullstack from 'nullstack';
-import type { NullstackClientContext } from 'nullstack/types';
+import Nullstack, { NullstackClientContext } from 'nullstack';
 import './Application.css';
 import Home from './Home';
 

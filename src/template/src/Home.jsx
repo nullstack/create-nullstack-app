@@ -1,6 +1,6 @@
 import Nullstack from 'nullstack';
-import './Home.css';
 import Logo from 'nullstack/logo';
+import './Home.css';
 
 class Home extends Nullstack {
 

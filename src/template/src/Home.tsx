@@ -1,17 +1,16 @@
-import Nullstack from 'nullstack';
+import Nullstack, { NullstackClientContext } from 'nullstack';
 import Logo from 'nullstack/logo';
-import type { NullstackClientContext } from 'nullstack/types';
 import './Home.css';
 
 declare function Link(): typeof Home.prototype.renderLink
 
-interface HomeProps {
+interface HomeProps extends NullstackClientContext {
   route: string
 }
 
 class Home extends Nullstack<HomeProps> {
 
-  prepare({ project, page }: NullstackClientContext) {
+  prepare({ project, page }: HomeProps) {
     page.title = `${project.name} - {{i18n_welcome}}`;
     page.description = `${project.name} {{i18n_madeWith}}`;
   }
@@ -25,7 +24,7 @@ class Home extends Nullstack<HomeProps> {
     )
   }
 
-  render({ project }: NullstackClientContext) {
+  render({ project }: HomeProps) {
     return (
       <section>
         <article>
