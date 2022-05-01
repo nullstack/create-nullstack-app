@@ -1,6 +1,6 @@
 import Nullstack from 'nullstack';
-import './Home.css';
 import Logo from 'nullstack/logo';
+import './Home.css';
 
 class Home extends Nullstack {
 
@@ -27,41 +27,41 @@ class Home extends Nullstack {
           </Link>
           <h1> {project.name} </h1>
           <p>
-            {{ i18n_gettingStarted }}
+            {{i18n_gettingStarted}}
             <Link href="{{PROJECT_SRC}}">
-              {{ i18n_srcFolder }}
+              {{i18n_srcFolder}}
             </Link>.
           </p>
           <span>
-            {{ i18n_hintExtension }}
+            {{i18n_hintExtension}}
             <Link href="vscode:extension/ChristianMortaro.vscode-nullstack">
-              {{ i18n_vsExtension }}
+              {{i18n_vsExtension}}
             </Link>
           </span>
           <ul>
             <li>
               <Link href="{{i18n_link0:0}}">
-                {{ i18n_link0: 1 }}
+                {{i18n_link0:1}}
               </Link>
             </li>
             <li>
               <Link href="{{i18n_link1:0}}">
-                {{ i18n_link1: 1 }}
+                {{i18n_link1:1}}
               </Link>
             </li>
             <li>
               <Link href="{{i18n_link2:0}}">
-                {{ i18n_link2: 1 }}
+                {{i18n_link2:1}}
               </Link>
             </li>
             <li>
               <Link href="{{i18n_link3:0}}">
-                {{ i18n_link3: 1 }}
+                {{i18n_link3:1}}
               </Link>
             </li>
             <li>
               <Link href="{{i18n_link4:0}}">
-                {{ i18n_link4: 1 }}
+                {{i18n_link4:1}}
               </Link>
             </li>
           </ul>
