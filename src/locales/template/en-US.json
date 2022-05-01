@@ -9,7 +9,7 @@
   "vsExtension": "VS Code Extension",
   "links": [
     [
-      "https://nullstack.app/renderable-components",
+      "https://nullstack.app/stateless-components",
       "🎉 Create your first component "
     ],
     [
@@ -29,8 +29,6 @@
       "🎬 Subscribe to our Youtube Channel"
     ]
   ],
-  "authorQuote": "As da Vinci would say:",
-  "footerQuote": "\"Simplicity is the ultimate sophistication\"",
   "nulla": {
     "link": "https://nullstack.app/waifu",
     "altImage": "Nulla-Chan: Nullstack's official waifu"

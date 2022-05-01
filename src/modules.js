@@ -21,7 +21,7 @@ const i18nTemplate = getLanguage('template/');
 // Modules object
 const Nulla = {};
 
-Nulla.getFiles = function(directory, Files) {
+Nulla.getFiles = function (directory, Files) {
 
   fs.readdirSync(directory).forEach(file => {
     const absolute = path.join(directory, file);
@@ -41,7 +41,7 @@ Nulla.getFiles = function(directory, Files) {
 
 };
 
-const Files  = { images: [], files: [] };
+const Files = { images: [], files: [] };
 Nulla.getFiles(path.join(packageFolder, "template"), Files);
 
 Nulla.contentReplacer = (content, name, value, mainName) => {
@@ -167,8 +167,8 @@ Nulla.tryRun = (rl, name, isTS) => {
 };
 
 Nulla.isTS = (args) => {
-  const tsIdx = args.includes('--ts')
-    ? args.indexOf('--ts')
+  const tsIdx = args.includes('-ts')
+    ? args.indexOf('-ts')
     : args.indexOf('--typescript');
   if (tsIdx > -1) {
     args.splice(tsIdx, 1);
