@@ -1,17 +1,16 @@
-import Nullstack from 'nullstack';
+import Nullstack, { NullstackClientContext } from 'nullstack';
 import Logo from 'nullstack/logo';
-import type { NullstackClientContext } from 'nullstack/types';
 import './Home.css';
 
 declare function Link(): typeof Home.prototype.renderLink
 
-interface HomeProps {
+interface HomeProps extends NullstackClientContext {
   route: string
 }
 
 class Home extends Nullstack<HomeProps> {
 
-  prepare({ project, page }: NullstackClientContext) {
+  prepare({ project, page }: HomeProps) {
     page.title = `${project.name} - {{i18n_welcome}}`;
     page.description = `${project.name} {{i18n_madeWith}}`;
   }
@@ -25,7 +24,7 @@ class Home extends Nullstack<HomeProps> {
     )
   }
 
-  render({ project }: NullstackClientContext) {
+  render({ project }: HomeProps) {
     return (
       <section>
         <article>
@@ -34,41 +33,41 @@ class Home extends Nullstack<HomeProps> {
           </Link>
           <h1> {project.name} </h1>
           <p>
-            {{i18n_gettingStarted}}
+            {{ i18n_gettingStarted }}
             <Link href="{{PROJECT_SRC}}">
-              {{i18n_srcFolder}}
+              {{ i18n_srcFolder }}
             </Link>.
           </p>
           <span>
-            {{i18n_hintExtension}}
+            {{ i18n_hintExtension }}
             <Link href="vscode:extension/ChristianMortaro.vscode-nullstack">
-              {{i18n_vsExtension}}
+              {{ i18n_vsExtension }}
             </Link>
           </span>
           <ul>
             <li>
               <Link href="{{i18n_link0:0}}">
-                {{i18n_link0:1}}
+                {{ i18n_link0: 1 }}
               </Link>
             </li>
             <li>
               <Link href="{{i18n_link1:0}}">
-                {{i18n_link1:1}}
+                {{ i18n_link1: 1 }}
               </Link>
             </li>
             <li>
               <Link href="{{i18n_link2:0}}">
-                {{i18n_link2:1}}
+                {{ i18n_link2: 1 }}
               </Link>
             </li>
             <li>
               <Link href="{{i18n_link3:0}}">
-                {{i18n_link3:1}}
+                {{ i18n_link3: 1 }}
               </Link>
             </li>
             <li>
               <Link href="{{i18n_link4:0}}">
-                {{i18n_link4:1}}
+                {{ i18n_link4: 1 }}
               </Link>
             </li>
           </ul>
