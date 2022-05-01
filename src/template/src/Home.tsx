@@ -4,13 +4,13 @@ import './Home.css';
 
 declare function Link(): typeof Home.prototype.renderLink
 
-interface HomeProps extends NullstackClientContext {
+interface Props extends NullstackClientContext {
   route: string
 }
 
-class Home extends Nullstack<HomeProps> {
+class Home extends Nullstack<Props> {
 
-  prepare({ project, page }: HomeProps) {
+  prepare({ project, page }: Props) {
     page.title = `${project.name} - {{i18n_welcome}}`;
     page.description = `${project.name} {{i18n_madeWith}}`;
   }
