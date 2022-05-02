@@ -87,6 +87,7 @@ Nulla.run = (names, isTS) => {
 
   for (const file of Files.files) {
     if (file.match(new RegExp(`.${isTS ? 'jsx' : 'tsx'}$`))) continue;
+    if (!isTS && /tsconfig.json/.test(file)) continue;
     let content = fs.readFileSync(
       path.join(packageFolder, "template", file),
       'utf8'
