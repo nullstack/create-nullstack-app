@@ -72,9 +72,12 @@ const replaceLangs = (content) => {
   return content;
 };
 
-Nulla.run = (names, isTS) => {
+Nulla.run = (names, isTS, isTailwind) => {
   const { projectSlug, projectName } = names;
   const projectPath = path.join(process.cwd(), projectSlug);
+  
+  // All files that will be replaced by tailwind
+  const tailwindReplace = [];
 
   fs.mkdirSync(projectPath);
   fs.mkdirSync(`${projectPath}/src`);
@@ -85,16 +88,33 @@ Nulla.run = (names, isTS) => {
       .replace(/[\\]/g, '/')
   );
 
+  // Tailwind check, remove all default files and replace them with Tailwind defaults
+  if (isTailwind)
+  for (const file of Files.files) {
+    if (file.includes(".tailwind")) {
+      tailwindReplace.push(file.replace(".tailwind", ""))
+    }
+  }
+
   for (const file of Files.files) {
     if (file.match(new RegExp(`.${isTS ? 'jsx' : 'tsx'}$`))) continue;
     if (!isTS && /tsconfig.json/.test(file)) continue;
+
+    // Tailwind replacer
+    if (isTailwind) {
+
+      // Check if the file is going to be replaced by tailwind file
+      if (tailwindReplace.includes(file)) continue;
+
+    } else if (file.includes("tailwind")) continue; // If it is not tailwind, do not add tailwind files to the bundle
+
     let content = fs.readFileSync(
       path.join(packageFolder, "template", file),
       'utf8'
     );
     content = Nulla.contentReplacer(content, 'NAME', projectName);
     content = Nulla.contentReplacer(content, 'SLUG', projectSlug);
-    const target = path.join(projectPath, file.replace('_', '.'));
+    const target = path.join(projectPath, file.replace('_', '.').replace('.tailwind', ''));
     content = Nulla.contentReplacer(content, 'SRC', srcFolder);
     content = Nulla.contentReplacer(content, 'LANG', lang);
     content = replaceLangs(content);
@@ -157,11 +177,11 @@ Nulla.errorHandler = (e) => {
   }
 };
 
-Nulla.tryRun = (rl, name, isTS) => {
+Nulla.tryRun = (rl, name, isTS, isTailwind) => {
   try {
     rl.close();
     const names = Nulla.storeNames(name);
-    Nulla.run(names, isTS);
+    Nulla.run(names, isTS, isTailwind);
   } catch (e) {
     Nulla.errorHandler(e);
   }
@@ -173,6 +193,17 @@ Nulla.isTS = (args) => {
     : args.indexOf('--typescript');
   if (tsIdx > -1) {
     args.splice(tsIdx, 1);
+    return true;
+  }
+  return false;
+};
+
+Nulla.isTailwind = (args) => {
+  const twIdx = args.includes('-tw')
+    ? args.indexOf('-tw')
+    : args.indexOf('--tailwind');
+  if (twIdx > -1) {
+    args.splice(twIdx, 1);
     return true;
   }
   return false;

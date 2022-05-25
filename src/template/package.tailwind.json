@@ -1,0 +1,17 @@
+{
+  "name": "{{PROJECT_SLUG}}",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nullstack": "~0.15.0",
+    "tailwindcss": "^3.0.0",
+    "concurrently": "^7.2.0"
+  },
+  "scripts": {
+    "start": "concurrently --k \"npm:tailwind -- --watch\" \"npx nullstack start\" ",
+    "build": "npx tailwindcss -o ./src/tailwind.css & npx nullstack build --mode=ssr",
+    "tailwind": "npx tailwindcss -o ./src/tailwind.css"
+  }
+}

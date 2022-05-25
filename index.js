@@ -10,8 +10,11 @@ const rl = readline.createInterface({
 
 let args = process.argv.slice(2);
 const isTS = Nulla.isTS(args);
+const isTailwind = Nulla.isTailwind(args);
 
-const tryNameRun = (name) => Nulla.tryRun(rl, name, isTS);
+console.log(isTailwind);
+
+const tryNameRun = (name) => Nulla.tryRun(rl, name, isTS, isTailwind);
 let argName = args.join(' ');
 
 if (!argName) {
