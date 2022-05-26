@@ -1,6 +1,6 @@
 import Nullstack from 'nullstack';
-import './Application.css';
 import './tailwind.css';
+import './Application.css';
 import Home from './Home';
 
 class Application extends Nullstack {

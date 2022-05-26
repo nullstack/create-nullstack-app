@@ -12,8 +12,6 @@ let args = process.argv.slice(2);
 const isTS = Nulla.isTS(args);
 const isTailwind = Nulla.isTailwind(args);
 
-console.log(isTailwind);
-
 const tryNameRun = (name) => Nulla.tryRun(rl, name, isTS, isTailwind);
 let argName = args.join(' ');
 
