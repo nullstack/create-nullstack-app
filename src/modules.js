@@ -106,6 +106,9 @@ Nulla.run = (names, isTS, isTailwind) => {
       // Check if the file is going to be replaced by tailwind file
       if (tailwindReplace.includes(file)) continue;
 
+      // Do not include css files unless they're supposed to be included
+      if (file.endsWith(".css") && !file.includes("tailwind.")) continue;
+
     } else if (file.includes("tailwind")) continue; // If it is not tailwind, do not add tailwind files to the bundle
 
     let content = fs.readFileSync(

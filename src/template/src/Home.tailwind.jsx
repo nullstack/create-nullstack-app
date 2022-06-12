@@ -1,6 +1,5 @@
 import Nullstack from 'nullstack';
 import Logo from 'nullstack/logo';
-import './Home.css';
 class Home extends Nullstack {
 
   prepare({ project, page }) {
@@ -11,13 +10,20 @@ class Home extends Nullstack {
   renderLink({ children, href }) {
     const link = href + '?ref=create-nullstack-app';
     return (
-      <a href={link} target="_blank" rel="noopener noreferrer">
+      <a class="text-mainPurple ml-1" href={link} target="_blank" rel="noopener noreferrer">
         {children}
       </a>
     )
   }
 
-
+  renderActionLink({ children, href }) {
+    const link = href + '?ref=create-nullstack-app';
+    return (
+      <a class="inline-block text-mainPurple mb-2 ml-1 px-1 py-2" href={link} target="_blank" rel="noopener noreferrer">
+        {children}
+      </a>
+    )
+  }
 
   render({ project }) {
     return (
@@ -29,44 +35,44 @@ class Home extends Nullstack {
               <Logo height={60} light />
             </div>
           </Link>
-          <h1 class="tracking-[1px] font-bold text-lg"> {project.name} </h1>
-          <p class="leading-[18px]">
+          <h1 class="block font-crete-round tracking-[1px] font-bold text-lg mt-4"> {project.name} </h1>
+          <p class="block leading-[18px] mt-4">
             We made some examples to help you getting started! Take a look at the
             <Link href="vscode://file/C:/Users/sussh/Desktop/Nullstack/create-nullstack-app/boomba/src">
               src folder
             </Link>.
           </p>
-          <span>
+          <span class="block mt-4">
             Hint: we have a
             <Link href="vscode:extension/ChristianMortaro.vscode-nullstack">
               VS Code Extension
             </Link>
           </span>
-          <ul class="leading-snug">
+          <ul class="block leading-snug mt-4">
             <li>
-              <Link href="https://nullstack.app/stateless-components">
+              <ActionLink href="https://nullstack.app/stateless-components">
                 🎉 Create your first component 
-              </Link>
+              </ActionLink>
             </li>
             <li>
-              <Link href="https://nullstack.app/routes-and-params">
+              <ActionLink href="https://nullstack.app/routes-and-params">
                 ✨ Set your first route
-              </Link>
+              </ActionLink>
             </li>
             <li>
-              <Link href="https://nullstack.app/context">
+              <ActionLink href="https://nullstack.app/context">
                 ⚡ Define your context
-              </Link>
+              </ActionLink>
             </li>
             <li>
-              <Link href="https://github.com/nullstack/nullstack/stargazers">
+              <ActionLink href="https://github.com/nullstack/nullstack/stargazers">
                 ⭐ Leave a star on github
-              </Link>
+              </ActionLink>
             </li>
             <li>
-              <Link href="https://youtube.com/nullstack">
+              <ActionLink href="https://youtube.com/nullstack">
                 🎬 Subscribe to our Youtube Channel
-              </Link>
+              </ActionLink>
             </li>
           </ul>
         </article>

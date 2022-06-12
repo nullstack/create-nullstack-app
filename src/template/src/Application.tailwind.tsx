@@ -1,6 +1,5 @@
 import Nullstack, { NullstackClientContext } from 'nullstack';
 import './tailwind.css';
-import './Application.css';
 import Home from './Home';
 
 declare function Head(): typeof Application.prototype.renderHead
@@ -25,10 +24,12 @@ class Application extends Nullstack {
 
   render() {
     return (
-      <main>
+      <>
         <Head />
-        <Home route="/" />
-      </main>
+        <body class="bg-mainBgColor text-[#fff] font-roboto">
+          <Home route="/" />
+        </body>
+      </>
     )
   }
 

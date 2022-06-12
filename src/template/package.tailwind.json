@@ -10,8 +10,7 @@
     "concurrently": "^7.2.0"
   },
   "scripts": {
-    "start": "concurrently --k \"npm:tailwind -- --watch\" \"npx nullstack start\" ",
-    "build": "npx tailwindcss -o ./src/tailwind.css & npx nullstack build --mode=ssr",
-    "tailwind": "npx tailwindcss -o ./src/tailwind.css"
+    "start": "concurrently --k \"npx tailwindcss -o ./src/tailwind.css --watch\" \"npx nullstack start\" ",
+    "build": "npx tailwindcss -o ./src/tailwind.css & npx nullstack build --mode=ssr"
   }
 }
