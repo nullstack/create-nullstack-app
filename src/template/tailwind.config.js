@@ -12,10 +12,6 @@ module.exports = {
     fontFamily: {
       'roboto': ['Roboto', 'sans-serif'],
       'crete-round': ['Crete Round', 'sans-serif'],
-    },
-    colors: {
-      mainPurple: '#f15d9f',
-      mainBgColor: '#111827'
     }
   },
   plugins: [],

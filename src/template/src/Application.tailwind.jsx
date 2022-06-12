@@ -24,7 +24,7 @@ class Application extends Nullstack {
     return (
       <>
         <Head />
-        <body class="bg-mainBgColor text-[#fff] font-roboto">
+        <body class="bg-gray-900 text-[#fff] font-roboto">
           <Home route="/" />
         </body>
       </>

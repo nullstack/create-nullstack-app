@@ -18,7 +18,7 @@ class Home extends Nullstack<HomeProps> {
   renderLink({ children, href }: { children: Element[], href: string }) {
     const link = href + '?ref=create-nullstack-app';
     return (
-      <a class="text-mainPurple ml-1" href={link} target="_blank" rel="noopener noreferrer">
+      <a class="text-pink-500 ml-1" href={link} target="_blank" rel="noopener noreferrer">
         {children}
       </a>
     )
@@ -27,7 +27,7 @@ class Home extends Nullstack<HomeProps> {
   renderActionLink({ children, href }: { children: Element[], href: string }) {
     const link = href + '?ref=create-nullstack-app';
     return (
-      <a class="inline-block text-mainPurple mb-2 ml-1 px-1 py-2" href={link} target="_blank" rel="noopener noreferrer">
+      <a class="inline-block text-pink-500 mb-2 ml-1 px-1 py-2" href={link} target="_blank" rel="noopener noreferrer">
         {children}
       </a>
     )
