@@ -22,12 +22,10 @@ class Application extends Nullstack {
 
   render() {
     return (
-      <>
+      <body class="bg-gray-900 text-[#fff] font-roboto">
         <Head />
-        <body class="bg-gray-900 text-[#fff] font-roboto">
-          <Home route="/" />
-        </body>
-      </>
+        <Home route="/" />
+      </body>
     )
   }
 
