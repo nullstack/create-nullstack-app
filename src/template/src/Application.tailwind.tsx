@@ -1,5 +1,5 @@
 import Nullstack, { NullstackClientContext } from 'nullstack';
-import './tailwind.css';
+import '../tailwind.css';
 import Home from './Home';
 
 declare function Head(): typeof Application.prototype.renderHead

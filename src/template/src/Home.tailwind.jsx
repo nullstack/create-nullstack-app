@@ -1,5 +1,6 @@
 import Nullstack from 'nullstack';
 import Logo from 'nullstack/logo';
+
 class Home extends Nullstack {
 
   prepare({ project, page }) {
@@ -27,58 +28,58 @@ class Home extends Nullstack {
 
   render({ project }) {
     return (
-      <section class="w-full max-w-[800px] min-h-screen my-0 mx-auto
+      <section class="w-full max-w-3xl min-h-screen my-0 mx-auto
        flex items-center p-6 flex-wrap md:flex-nowrap">
         <article class="w-full mb-5">
-          <Link href="https://nullstack.app/">
+          <Link href="{{i18n_nullstackDoc}}">
             <div class="ml-1">
               <Logo height={60} light />
             </div>
           </Link>
-          <h1 class="block font-crete-round tracking-[1px] font-bold text-lg mt-4"> {project.name} </h1>
-          <p class="block leading-[18px] mt-4">
-            We made some examples to help you getting started! Take a look at the
+          <h1 class="block font-crete-round tracking-widest font-bold text-lg mt-4"> {project.name} </h1>
+          <p class="block mt-4">
+            {{i18n_gettingStarted}}
             <Link href="vscode://file/C:/Users/sussh/Desktop/Nullstack/create-nullstack-app/boomba/src">
-              src folder
+              {{i18n_srcFolder}}
             </Link>.
           </p>
           <span class="block mt-4">
-            Hint: we have a
+            {{i18n_hintExtension}}
             <Link href="vscode:extension/ChristianMortaro.vscode-nullstack">
-              VS Code Extension
+              {{i18n_vsExtension}}
             </Link>
           </span>
           <ul class="block leading-snug mt-4">
             <li>
-              <ActionLink href="https://nullstack.app/stateless-components">
-                🎉 Create your first component 
+              <ActionLink href="{{i18n_link0:0}}">
+                {{i18n_link0:1}}
               </ActionLink>
             </li>
             <li>
-              <ActionLink href="https://nullstack.app/routes-and-params">
-                ✨ Set your first route
+              <ActionLink href="{{i18n_link1:0}}">
+                {{i18n_link1:1}}
               </ActionLink>
             </li>
             <li>
-              <ActionLink href="https://nullstack.app/context">
-                ⚡ Define your context
+              <ActionLink href="{{i18n_link2:0}}">
+                {{i18n_link2:1}}
               </ActionLink>
             </li>
             <li>
-              <ActionLink href="https://github.com/nullstack/nullstack/stargazers">
-                ⭐ Leave a star on github
+              <ActionLink href="{{i18n_link3:0}}">
+                {{i18n_link3:1}}
               </ActionLink>
             </li>
             <li>
-              <ActionLink href="https://youtube.com/nullstack">
-                🎬 Subscribe to our Youtube Channel
+              <ActionLink href="{{i18n_link4:0}}">
+                {{i18n_link4:1}}
               </ActionLink>
             </li>
           </ul>
         </article>
         <aside class="w-full">
-          <Link href="https://nullstack.app/waifu">
-            <img class="w-full inline-block" src="/nulla-chan.webp" alt="Nulla-Chan: Nullstack's official waifu" />
+          <Link href="{{i18n_nulla.link}}">
+            <img class="w-full inline-block" src="/nulla-chan.webp" alt="{{i18n_nulla.altImage}}" />
           </Link>
         </aside>
       </section>

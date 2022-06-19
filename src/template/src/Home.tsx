@@ -8,6 +8,10 @@ interface HomeProps extends NullstackClientContext {
   route: string
 }
 
+interface HomeLinkProps extends HomeProps {
+  href: string
+}
+
 class Home extends Nullstack<HomeProps> {
 
   prepare({ project, page }: HomeProps) {
@@ -15,7 +19,7 @@ class Home extends Nullstack<HomeProps> {
     page.description = `${project.name} {{i18n_madeWith}}`;
   }
 
-  renderLink({ children, href }: { children: Element[], href: string }) {
+  renderLink({ children, href }: HomeLinkProps) {
     const link = href + '?ref=create-nullstack-app';
     return (
       <a href={link} target="_blank" rel="noopener noreferrer">

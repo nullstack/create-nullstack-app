@@ -1,6 +1,6 @@
 section {
   width: 100%;
-  max-width: 800px;
+  max-width: 48rem;
   min-height: 100vh;
   margin: 0 auto;
   display: flex;
@@ -16,20 +16,19 @@ article {
   width: 100%;
 }
 
-article > * + * {
+article>*+* {
   margin-top: 1em;
   display: block;
 }
 
 article h1 {
   font-family: 'Crete Round', serif;
-  letter-spacing: 1px;
+  letter-spacing: 0.1em;
 }
 
 article li a {
   display: inline-block;
-  padding: 0.2em 0.5em;
-  margin-bottom: 0.4em;
+  line-height: 1.25rem;
 }
 
 img {

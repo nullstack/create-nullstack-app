@@ -22,7 +22,7 @@ class Application extends Nullstack {
 
   render() {
     return (
-      <body >
+      <body>
         <Head />
         <Home route="/" />
       </body>
