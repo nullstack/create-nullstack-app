@@ -72,9 +72,17 @@ const replaceLangs = (content) => {
   return content;
 };
 
-Nulla.run = (names, isTS) => {
+Nulla.addToPackage = (projectPath, field, property, value) => {
+  const packageJson = require(path.join(projectPath, 'package.json'));
+  packageJson[field] = packageJson[field] || {};
+  packageJson[field][property] = value;
+  fs.writeFileSync(path.join(projectPath, 'package.json'), JSON.stringify(packageJson, null, 2));
+}
+
+Nulla.run = (names, {isTS, isTW}) => {
   const { projectSlug, projectName } = names;
   const projectPath = path.join(process.cwd(), projectSlug);
+  const fileExt = isTS ? 'tsx' : 'jsx';
 
   fs.mkdirSync(projectPath);
   fs.mkdirSync(`${projectPath}/src`);
@@ -88,17 +96,40 @@ Nulla.run = (names, isTS) => {
   for (const file of Files.files) {
     if (file.match(new RegExp(`.${isTS ? 'jsx' : 'tsx'}$`))) continue;
     if (!isTS && /tsconfig.json/.test(file)) continue;
+    if (!isTW && /tailwind.config.js/.test(file)) continue;
     let content = fs.readFileSync(
       path.join(packageFolder, "template", file),
       'utf8'
     );
     content = Nulla.contentReplacer(content, 'NAME', projectName);
     content = Nulla.contentReplacer(content, 'SLUG', projectSlug);
+    content = Nulla.contentReplacer(content, 'EXTENSION', fileExt);
     const target = path.join(projectPath, file.replace('_', '.'));
     content = Nulla.contentReplacer(content, 'SRC', srcFolder);
     content = Nulla.contentReplacer(content, 'LANG', lang);
     content = replaceLangs(content);
     fs.writeFileSync(target, content);
+  }
+
+  if(isTW) {
+    Nulla.addToPackage(projectPath, 'devDependencies', 'tailwindcss', '^3.1');
+    Nulla.addToPackage(projectPath, 'scripts', 'tailwind', 'npx tailwindcss -i src/Application.css -o src/tailwind.css');
+    Nulla.addToPackage(projectPath, 'scripts', 'tailwind-watch', 'npx tailwindcss -i src/Application.css -o src/tailwind.css --watch');
+    
+    let content = `@tailwind base;\n@tailwind components;\n@tailwind utilities;\n\n`
+    content += fs.readFileSync(
+      path.join(projectPath, "src", 'Application.css'),
+      'utf8'
+    );
+    fs.writeFileSync(path.join(projectPath, "src", 'Application.css'), content);
+
+    content = fs.readFileSync(
+      path.join(projectPath, "src", `Application.${fileExt}`),
+      'utf8'
+    );
+
+    content = content.replace(`import './Application.css';`, `import './Application.css';\nimport './tailwind.css';`);
+    fs.writeFileSync(path.join(projectPath, "src", `Application.${fileExt}`), content);
   }
 
   for (const image of Files.images) {
@@ -157,11 +188,11 @@ Nulla.errorHandler = (e) => {
   }
 };
 
-Nulla.tryRun = (rl, name, isTS) => {
+Nulla.tryRun = (rl, name, opts) => {
   try {
     rl.close();
     const names = Nulla.storeNames(name);
-    Nulla.run(names, isTS);
+    Nulla.run(names, opts);
   } catch (e) {
     Nulla.errorHandler(e);
   }
@@ -177,5 +208,14 @@ Nulla.isTS = (args) => {
   }
   return false;
 };
+
+Nulla.isTW = (args) => {
+  const tsIdx = args.indexOf('--tailwind');
+  if(tsIdx > -1) {
+    args.splice(tsIdx, 1);
+    return true;
+  }
+  return false;
+}
 
 module.exports = { Nulla, i18n };

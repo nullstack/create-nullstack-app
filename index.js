@@ -10,8 +10,9 @@ const rl = readline.createInterface({
 
 let args = process.argv.slice(2);
 const isTS = Nulla.isTS(args);
+const isTW = Nulla.isTW(args);
 
-const tryNameRun = (name) => Nulla.tryRun(rl, name, isTS);
+const tryNameRun = (name) => Nulla.tryRun(rl, name, {isTS, isTW});
 let argName = args.join(' ');
 
 if (!argName) {
