@@ -1,8 +1,8 @@
 import Nullstack, { NullstackClientContext } from 'nullstack';
 import Logo from 'nullstack/logo';
-import './Home.css';
 
 declare function Link(): typeof Home.prototype.renderLink
+declare function ActionLink(): typeof Home.prototype.renderActionLink
 
 interface HomeProps extends NullstackClientContext {
   route: string
@@ -22,7 +22,16 @@ class Home extends Nullstack<HomeProps> {
   renderLink({ children, href }: HomeLinkProps) {
     const link = href + '?ref=create-nullstack-app';
     return (
-      <a href={link} target="_blank" rel="noopener noreferrer">
+      <a class="text-pink-500 ml-1" href={link} target="_blank" rel="noopener noreferrer">
+        {children}
+      </a>
+    )
+  }
+
+  renderActionLink({ children, href }: HomeLinkProps) {
+    const link = href + '?ref=create-nullstack-app';
+    return (
+      <a class="inline-block text-pink-500 mb-2 ml-1 px-1 py-2" href={link} target="_blank" rel="noopener noreferrer">
         {children}
       </a>
     )
@@ -30,55 +39,58 @@ class Home extends Nullstack<HomeProps> {
 
   render({ project }: HomeProps) {
     return (
-      <section>
-        <article>
+      <section class="w-full max-w-3xl min-h-screen my-0 mx-auto
+       flex items-center p-6 flex-wrap md:flex-nowrap">
+        <article class="w-full mb-5">
           <Link href="{{i18n_nullstackDoc}}">
-            <Logo height={60} light />
+            <div class="ml-1">
+              <Logo height={60} light />
+            </div>
           </Link>
-          <h1> {project.name} </h1>
-          <p>
+          <h1 class="block font-crete-round tracking-widest font-bold text-lg mt-4"> {project.name} </h1>
+          <p class="block mt-4">
             {{i18n_gettingStarted}}
-            <Link href="{{PROJECT_SRC}}">
+            <Link href="vscode://file/C:/Users/sussh/Desktop/Nullstack/create-nullstack-app/boomba/src">
               {{i18n_srcFolder}}
             </Link>.
           </p>
-          <span>
+          <span class="block mt-4">
             {{i18n_hintExtension}}
             <Link href="vscode:extension/ChristianMortaro.vscode-nullstack">
               {{i18n_vsExtension}}
             </Link>
           </span>
-          <ul>
+          <ul class="block leading-snug mt-4">
             <li>
-              <Link href="{{i18n_link0:0}}">
+              <ActionLink href="{{i18n_link0:0}}">
                 {{i18n_link0:1}}
-              </Link>
+              </ActionLink>
             </li>
             <li>
-              <Link href="{{i18n_link1:0}}">
+              <ActionLink href="{{i18n_link1:0}}">
                 {{i18n_link1:1}}
-              </Link>
+              </ActionLink>
             </li>
             <li>
-              <Link href="{{i18n_link2:0}}">
+              <ActionLink href="{{i18n_link2:0}}">
                 {{i18n_link2:1}}
-              </Link>
+              </ActionLink>
             </li>
             <li>
-              <Link href="{{i18n_link3:0}}">
+              <ActionLink href="{{i18n_link3:0}}">
                 {{i18n_link3:1}}
-              </Link>
+              </ActionLink>
             </li>
             <li>
-              <Link href="{{i18n_link4:0}}">
+              <ActionLink href="{{i18n_link4:0}}">
                 {{i18n_link4:1}}
-              </Link>
+              </ActionLink>
             </li>
           </ul>
         </article>
-        <aside>
+        <aside class="w-full">
           <Link href="{{i18n_nulla.link}}">
-            <img src="/nulla-chan.webp" alt="{{i18n_nulla.altImage}}" />
+            <img class="w-full inline-block" src="/nulla-chan.webp" alt="{{i18n_nulla.altImage}}" />
           </Link>
         </aside>
       </section>

@@ -154,7 +154,7 @@ describe("functions using filesystem", () => {
       }
     });
 
-    Nulla.tryRun(rl, 'Project', false);
+    Nulla.tryRun(rl, 'Project', false, false);
     expect(rl.close).toBeCalled();
     expect(Nulla.run).toBeCalledWith(
       getNamesObject('Project', 'project', 'Project'),
@@ -163,7 +163,7 @@ describe("functions using filesystem", () => {
 
     mockedRun.mockRestore();
     Nulla.errorHandler = jest.fn();
-    Nulla.tryRun(rl, 'Project', false);
+    Nulla.tryRun(rl, 'Project', false, false);
 
     expect(Nulla.errorHandler).toBeCalled();
   });

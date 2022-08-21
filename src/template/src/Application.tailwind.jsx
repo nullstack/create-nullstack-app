@@ -1,5 +1,5 @@
 import Nullstack from 'nullstack';
-import './Application.css';
+import '../tailwind.css';
 import Home from './Home';
 
 class Application extends Nullstack {
@@ -22,7 +22,7 @@ class Application extends Nullstack {
 
   render() {
     return (
-      <body>
+      <body class="bg-gray-900 text-white font-roboto">
         <Head />
         <Home route="/" />
       </body>
