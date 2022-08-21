@@ -1,0 +1,7 @@
+node_modules/
+.development/
+.production/
+package-lock.json
+yarn.lock
+.env
+src/tailwind.css

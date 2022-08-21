@@ -5,10 +5,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nullstack": "~0.15.0"
+    "nullstack": "~0.16.0"
   },
   "scripts": {
     "start": "npx nullstack start",
-    "build": "npx nullstack build --mode=ssr"
+    "build": "npx nullstack build"
   }
 }
