@@ -10,10 +10,10 @@
     "concurrently": "^7.2.0"
   },
   "scripts": {
-    "start:nullstack": "npx nullstack start --mode=spa --hot",
+    "start:nullstack": "npx nullstack start",
     "start:tailwind": "npx tailwindcss -o ./tailwind.css --watch",
     "start": "concurrently npm:start:*",
-    "build:nullstack": "npx nullstack build --mode=ssr",
+    "build:nullstack": "npx nullstack build",
     "build:tailwind": "npx tailwindcss -o ./tailwind.css",
     "build": "npm run build:tailwind && npm run build:nullstack"
   }
