@@ -1,25 +1,25 @@
-import Nullstack, { NullstackClientContext } from 'nullstack';
+import Nullstack, { NullstackClientContext, NullstackNode } from 'nullstack';
 import Logo from 'nullstack/logo';
 
-declare function Link(): typeof Home.prototype.renderLink
-declare function ActionLink(): typeof Home.prototype.renderActionLink
-
-interface HomeProps extends NullstackClientContext {
-  route: string
+interface HomeProps {
+  greeting: string
 }
 
-interface HomeLinkProps extends HomeProps {
+interface HomeLinkProps {
   href: string
 }
 
+declare function Link(context: HomeLinkProps): NullstackNode
+declare function ActionLink(context: HomeLinkProps): NullstackNode
+
 class Home extends Nullstack<HomeProps> {
 
-  prepare({ project, page }: HomeProps) {
-    page.title = `${project.name} - {{i18n_welcome}}`;
+  prepare({ project, page, greeting }: NullstackClientContext<HomeProps>) {
+    page.title = `${project.name} - ${greeting}`;
     page.description = `${project.name} {{i18n_madeWith}}`;
   }
 
-  renderLink({ children, href }: HomeLinkProps) {
+  renderLink({ children, href }: NullstackClientContext<HomeProps & HomeLinkProps>) {
     const link = href + '?ref=create-nullstack-app';
     return (
       <a class="text-pink-500 ml-1" href={link} target="_blank" rel="noopener noreferrer">
@@ -28,7 +28,7 @@ class Home extends Nullstack<HomeProps> {
     )
   }
 
-  renderActionLink({ children, href }: HomeLinkProps) {
+  renderActionLink({ children, href }: NullstackClientContext<HomeProps & HomeLinkProps>) {
     const link = href + '?ref=create-nullstack-app';
     return (
       <a class="inline-block text-pink-500 mb-2 ml-1 px-1 py-2" href={link} target="_blank" rel="noopener noreferrer">
@@ -37,10 +37,9 @@ class Home extends Nullstack<HomeProps> {
     )
   }
 
-  render({ project }: HomeProps) {
+  render({ project, greeting }: NullstackClientContext<HomeProps>) {
     return (
-      <section class="w-full max-w-3xl min-h-screen my-0 mx-auto
-       flex items-center p-6 flex-wrap md:flex-nowrap">
+      <section class="w-full max-w-3xl min-h-screen my-0 mx-auto flex items-center p-6 flex-wrap md:flex-nowrap">
         <article class="w-full mb-5">
           <Link href="{{i18n_nullstackDoc}}">
             <div class="ml-1">
@@ -48,6 +47,7 @@ class Home extends Nullstack<HomeProps> {
             </div>
           </Link>
           <h1 class="block font-crete-round tracking-widest font-bold text-lg mt-4"> {project.name} </h1>
+          <p class="block mt-4"> {greeting} </p>
           <p class="block mt-4">
             {{i18n_gettingStarted}}
             <Link href="vscode://file/C:/Users/sussh/Desktop/Nullstack/create-nullstack-app/boomba/src">

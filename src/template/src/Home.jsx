@@ -4,8 +4,8 @@ import './Home.css';
 
 class Home extends Nullstack {
 
-  prepare({ project, page }) {
-    page.title = `${project.name} - {{i18n_welcome}}`;
+  prepare({ project, page, greeting }) {
+    page.title = `${project.name} - ${greeting}`;
     page.description = `${project.name} {{i18n_madeWith}}`;
   }
 
@@ -18,7 +18,7 @@ class Home extends Nullstack {
     )
   }
 
-  render({ project }) {
+  render({ project, greeting }) {
     return (
       <section>
         <article>
@@ -26,6 +26,7 @@ class Home extends Nullstack {
             <Logo height={60} light />
           </Link>
           <h1> {project.name} </h1>
+          <p> {greeting} </p>
           <p>
             {{i18n_gettingStarted}}
             <Link href="{{PROJECT_SRC}}">

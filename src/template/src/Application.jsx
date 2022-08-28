@@ -24,7 +24,7 @@ class Application extends Nullstack {
     return (
       <body>
         <Head />
-        <Home route="/" />
+        <Home route="/" greeting="{{i18n_welcome}}" />
       </body>
     )
   }
