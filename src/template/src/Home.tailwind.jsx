@@ -3,8 +3,8 @@ import Logo from 'nullstack/logo';
 
 class Home extends Nullstack {
 
-  prepare({ project, page }) {
-    page.title = `${project.name} - {{i18n_welcome}}`;
+  prepare({ project, page, greeting }) {
+    page.title = `${project.name} - ${greeting}`;
     page.description = `${project.name} {{i18n_madeWith}}`;
   }
 
@@ -26,10 +26,9 @@ class Home extends Nullstack {
     )
   }
 
-  render({ project }) {
+  render({ project, greeting }) {
     return (
-      <section class="w-full max-w-3xl min-h-screen my-0 mx-auto
-       flex items-center p-6 flex-wrap md:flex-nowrap">
+      <section class="w-full max-w-3xl min-h-screen my-0 mx-auto flex items-center p-6 flex-wrap md:flex-nowrap">
         <article class="w-full mb-5">
           <Link href="{{i18n_nullstackDoc}}">
             <div class="ml-1">
@@ -37,6 +36,7 @@ class Home extends Nullstack {
             </div>
           </Link>
           <h1 class="block font-crete-round tracking-widest font-bold text-lg mt-4"> {project.name} </h1>
+          <p class="block mt-4"> {greeting} </p>
           <p class="block mt-4">
             {{i18n_gettingStarted}}
             <Link href="vscode://file/C:/Users/sussh/Desktop/Nullstack/create-nullstack-app/boomba/src">

@@ -1,8 +1,8 @@
-import Nullstack, { NullstackClientContext } from 'nullstack';
+import Nullstack, { NullstackClientContext, NullstackNode } from 'nullstack';
 import './Application.css';
 import Home from './Home';
 
-declare function Head(): typeof Application.prototype.renderHead
+declare function Head(): NullstackNode
 
 class Application extends Nullstack {
 
@@ -26,7 +26,7 @@ class Application extends Nullstack {
     return (
       <main>
         <Head />
-        <Home route="/" />
+        <Home route="/" greeting="{{i18n_welcome}}" />
       </main>
     )
   }

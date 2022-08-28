@@ -24,7 +24,7 @@ class Application extends Nullstack {
     return (
       <body class="bg-gray-900 text-white font-roboto">
         <Head />
-        <Home route="/" />
+        <Home route="/" greeting="{{i18n_welcome}}" />
       </body>
     )
   }
