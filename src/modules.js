@@ -97,7 +97,7 @@ Nulla.run = (names, isTS, isTailwind) => {
   }
 
   for (const file of Files.files) {
-    if (file.match(new RegExp(`.${isTS ? 'jsx' : 'tsx'}$`))) continue;
+    if (file.match(new RegExp(`.${isTS ? 'js' : 'ts'}x?$`))) continue;
     if (!isTS && /tsconfig.json/.test(file)) continue;
 
     // Tailwind replacer
