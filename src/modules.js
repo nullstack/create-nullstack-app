@@ -75,7 +75,7 @@ const replaceLangs = (content) => {
 Nulla.run = (names, isTS, isTailwind) => {
   const { projectSlug, projectName } = names;
   const projectPath = path.join(process.cwd(), projectSlug);
-  
+
   // All files that will be replaced by tailwind
   const tailwindReplace = [];
 
@@ -90,14 +90,14 @@ Nulla.run = (names, isTS, isTailwind) => {
 
   // Tailwind check, remove all default files and replace them with Tailwind defaults
   if (isTailwind)
-  for (const file of Files.files) {
-    if (file.includes(".tailwind")) {
-      tailwindReplace.push(file.replace(".tailwind", ""))
+    for (const file of Files.files) {
+      if (file.includes(".tailwind")) {
+        tailwindReplace.push(file.replace(".tailwind", ""))
+      }
     }
-  }
 
   for (const file of Files.files) {
-    if (file.match(new RegExp(`.${isTS ? 'js' : 'ts'}x?$`))) continue;
+    if (file.match(new RegExp(`.${isTS ? 'js' : 'ts'}x?$`)) && file.indexOf('.config.') === -1) continue;
     if (!isTS && /tsconfig.json/.test(file)) continue;
 
     // Tailwind replacer
