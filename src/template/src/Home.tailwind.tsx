@@ -1,5 +1,6 @@
 import Nullstack, { NullstackClientContext, NullstackNode } from 'nullstack';
 import Logo from 'nullstack/logo';
+import Counter from './Counter';
 
 interface HomeProps {
   greeting: string
@@ -31,7 +32,7 @@ class Home extends Nullstack<HomeProps> {
   renderActionLink({ children, href }: NullstackClientContext<HomeProps & HomeLinkProps>) {
     const link = href + '?ref=create-nullstack-app';
     return (
-      <a class="inline-block text-pink-500 mb-2 ml-1 px-1 py-2" href={link} target="_blank" rel="noopener noreferrer">
+      <a class="inline-block text-pink-500 mb-1" href={link} target="_blank" rel="noopener noreferrer">
         {children}
       </a>
     )
@@ -50,16 +51,10 @@ class Home extends Nullstack<HomeProps> {
           <p class="block mt-4"> {greeting} </p>
           <p class="block mt-4">
             {{i18n_gettingStarted}}
-            <Link href="vscode://file/C:/Users/sussh/Desktop/Nullstack/create-nullstack-app/boomba/src">
+            <Link href="{{PROJECT_SRC}}">
               {{i18n_srcFolder}}
             </Link>.
           </p>
-          <span class="block mt-4">
-            {{i18n_hintExtension}}
-            <Link href="vscode:extension/ChristianMortaro.vscode-nullstack">
-              {{i18n_vsExtension}}
-            </Link>
-          </span>
           <ul class="block leading-snug mt-4">
             <li>
               <ActionLink href="{{i18n_link0:0}}">
@@ -87,6 +82,13 @@ class Home extends Nullstack<HomeProps> {
               </ActionLink>
             </li>
           </ul>
+          <span class="block mt-2">
+            {{i18n_hintExtension}}
+            <Link href="vscode:extension/ChristianMortaro.vscode-nullstack">
+              {{i18n_vsExtension}}
+            </Link>
+          </span>
+          <Counter />
         </article>
         <aside class="w-full">
           <Link href="{{i18n_nulla.link}}">
