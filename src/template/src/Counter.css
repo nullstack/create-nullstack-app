@@ -5,4 +5,5 @@ button {
   padding-bottom: 1rem;
   margin-top: 1rem;
   width: 100%;
+  cursor: pointer;
 }
