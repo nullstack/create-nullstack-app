@@ -42,8 +42,7 @@ class Counter extends Nullstack {
 
   render() {
     return (
-      <button
-        onclick={this.increment}>
+      <button onclick={this.increment}>
         this.count = {this.count}
       </button>
     )
