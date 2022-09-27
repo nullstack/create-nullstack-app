@@ -1,5 +1,6 @@
 import Nullstack, { NullstackClientContext, NullstackNode } from 'nullstack';
 import Logo from 'nullstack/logo';
+import Counter from './Counter';
 import './Home.css';
 
 interface HomeProps {
@@ -43,12 +44,6 @@ class Home extends Nullstack<HomeProps> {
               {{i18n_srcFolder}}
             </Link>.
           </p>
-          <span>
-            {{i18n_hintExtension}}
-            <Link href="vscode:extension/ChristianMortaro.vscode-nullstack">
-              {{i18n_vsExtension}}
-            </Link>
-          </span>
           <ul>
             <li>
               <Link href="{{i18n_link0:0}}">
@@ -76,6 +71,13 @@ class Home extends Nullstack<HomeProps> {
               </Link>
             </li>
           </ul>
+          <span>
+            {{i18n_hintExtension}}
+            <Link href="vscode:extension/ChristianMortaro.vscode-nullstack">
+              {{i18n_vsExtension}}
+            </Link>
+          </span>
+          <Counter />
         </article>
         <aside>
           <Link href="{{i18n_nulla.link}}">
