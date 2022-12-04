@@ -60,23 +60,23 @@ test('storeNames calls process.exit if projectSlug is invalid', () => {
 test(
   'errorHandler warns if projectFolder already exists otherwise shows all',
   () => {
-  console.log = jest.fn();
-  Nulla.errorHandler({ code: 'EEXIST'});
-  expect(console.log).toBeCalledWith(i18n.error.alreadyExists);
+    console.log = jest.fn();
+    Nulla.errorHandler({ code: 'EEXIST' });
+    expect(console.log).toBeCalledWith(i18n.error.alreadyExists);
 
-  console.log = jest.fn();
-  const otherError = { code: 'OTHER'};
-  Nulla.errorHandler(otherError);
-  expect(console.log).toBeCalledWith(i18n.error.default, otherError);
-});
+    console.log = jest.fn();
+    const otherError = { code: 'OTHER' };
+    Nulla.errorHandler(otherError);
+    expect(console.log).toBeCalledWith(i18n.error.default, otherError);
+  });
 
 test('contentReplacer replaces content based on regex', () => {
   const contents = [
-    ['test {{PROJECT_NAME}}', 'NAME', 'Project', 'test Project'],
-    ['test {{PROJECT_SLUG}}', 'SLUG', 'My Project', 'test My Project'],
+    ['test :!PROJECT_NAME!:', 'NAME', 'Project', 'test Project'],
+    ['test :!PROJECT_SLUG!:', 'SLUG', 'My Project', 'test My Project'],
     [
-      'test {{PROJECT_NAME}}{{PROJECT_SLUG}}',
-      'SLUG', 'my-project', 'test {{PROJECT_NAME}}my-project'
+      'test :!PROJECT_NAME!::!PROJECT_SLUG!:',
+      'SLUG', 'my-project', 'test :!PROJECT_NAME!:my-project'
     ]
   ];
 
@@ -100,7 +100,7 @@ describe("functions using filesystem", () => {
       }
     });
 
-    const Files  = { images: [], files: [] };
+    const Files = { images: [], files: [] };
     Nulla.getFiles(path.join(__dirname, '../src/template'), Files);
     const files = projectFilesRoot;
 
@@ -145,28 +145,28 @@ describe("functions using filesystem", () => {
   test(
     'tryRun() should close rl, run() and throw if project already exists',
     async () => {
-    const rl = { close: jest.fn() };
-    const mockedRun = jest.spyOn(Nulla, 'run');
-    mock({
-      [path.join(__dirname, '../Project')]: {},
-      [path.join(__dirname, '../src')]: {
-        template: mock.load(path.resolve(__dirname, '../src/template'))
-      }
+      const rl = { close: jest.fn() };
+      const mockedRun = jest.spyOn(Nulla, 'run');
+      mock({
+        [path.join(__dirname, '../Project')]: {},
+        [path.join(__dirname, '../src')]: {
+          template: mock.load(path.resolve(__dirname, '../src/template'))
+        }
+      });
+
+      Nulla.tryRun(rl, 'Project', false, false);
+      expect(rl.close).toBeCalled();
+      expect(Nulla.run).toBeCalledWith(
+        getNamesObject('Project', 'project', 'Project'),
+        false
+      );
+
+      mockedRun.mockRestore();
+      Nulla.errorHandler = jest.fn();
+      Nulla.tryRun(rl, 'Project', false, false);
+
+      expect(Nulla.errorHandler).toBeCalled();
     });
-
-    Nulla.tryRun(rl, 'Project', false, false);
-    expect(rl.close).toBeCalled();
-    expect(Nulla.run).toBeCalledWith(
-      getNamesObject('Project', 'project', 'Project'),
-      false
-    );
-
-    mockedRun.mockRestore();
-    Nulla.errorHandler = jest.fn();
-    Nulla.tryRun(rl, 'Project', false, false);
-
-    expect(Nulla.errorHandler).toBeCalled();
-  });
 
   afterEach(mock.restore);
 });

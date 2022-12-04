@@ -46,7 +46,7 @@ Nulla.getFiles(path.join(packageFolder, "template"), Files);
 
 Nulla.contentReplacer = (content, name, value, mainName) => {
   mainName = mainName || 'PROJECT';
-  return content.replace(new RegExp(`{{${mainName}_${name}}}`, 'g'), value);
+  return content.replace(new RegExp(`:!${mainName}_${name}!:`, 'g'), value);
 };
 
 const replaceLangs = (content) => {
