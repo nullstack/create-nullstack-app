@@ -16,8 +16,16 @@ class Counter extends Nullstack {
 
   count = 0
 
+  static async getDatabaseFile({ environment }): Promise<string> {
+    return path.join(
+      process.cwd(),
+      environment.production ? '.production' : '.development',
+      'count.json'
+    )
+  }
+
   static async getCount({ environment }: NullstackServerContext): Promise<number> {
-    const databaseFile = `${environment.production ? '.production' : '.development'}/count.json`
+    const databaseFile = await this.getDatabaseFile()
     if (existsSync(databaseFile)) {
       const json = readFileSync(databaseFile, 'utf-8')
       return JSON.parse(json).count
@@ -30,9 +38,9 @@ class Counter extends Nullstack {
   }
 
   static async setCount({ environment, count }: NullstackServerContext<SetCountProps>) {
-    const databaseFile = `${environment.production ? '.production' : '.development'}/count.json`
+    const databaseFile = await this.getDatabaseFile()
     const json = JSON.stringify({ count })
-    return writeFileSync(databaseFile, json)
+    return writeFileSync(databaseFile as string, json)
   }
 
   increment() {
