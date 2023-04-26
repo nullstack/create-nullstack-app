@@ -17,8 +17,8 @@ class Counter extends Nullstack {
 
   count = 0
 
-  static async getDatabaseFile(ctx?: NullstackServerContext) {
-    const { environment } = ctx
+  static async getDatabaseFile(context?: NullstackServerContext) {
+    const { environment } = context
     const folder = environment.production ? '.production' : '.development'
     return path.join(process.cwd(), folder, 'count.json')
   }
