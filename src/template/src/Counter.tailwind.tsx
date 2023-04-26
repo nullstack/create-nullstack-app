@@ -1,7 +1,7 @@
 import Nullstack, { NullstackServerContext } from 'nullstack'
 
-import fs from 'fs'
-import path from 'path'
+import * as fs from 'fs'
+import * as path from 'path'
 
 interface Counter {
   setCount(SetCountProps): void
@@ -16,7 +16,8 @@ class Counter extends Nullstack {
 
   count = 0
 
-  static async getDatabaseFile({ environment }) {
+  static async getDatabaseFile(context?: NullstackServerContext) {
+    const { environment } = context
     const folder = environment.production ? '.production' : '.development'
     return path.join(process.cwd(), folder, 'count.json')
   }

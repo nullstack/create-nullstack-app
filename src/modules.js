@@ -82,6 +82,7 @@ Nulla.run = (names, isTS, isTailwind) => {
   fs.mkdirSync(projectPath);
   fs.mkdirSync(`${projectPath}/src`);
   fs.mkdirSync(`${projectPath}/public`);
+  fs.mkdirSync(`${projectPath}/.vscode`);
 
   const srcFolder = 'vscode://file/' + (
     path.join(process.cwd(), `${projectSlug}/src`)
