@@ -13,6 +13,10 @@
     "mock-fs": "^4.13.0"
   },
   "scripts": {
-    "test": "jest --testTimeout=10000 --runInBand"
+    "test": "jest --testTimeout=10000 --runInBand --coverage"
+  },
+  "dependencies": {
+    "commander": "^11.1.0",
+    "inquirer": "^8.2.6"
   }
 }

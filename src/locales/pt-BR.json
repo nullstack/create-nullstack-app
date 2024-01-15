@@ -1,5 +1,12 @@
 {
   "questionName": "Qual o nome do projeto? ",
+  "template":{
+    "questionName": "Selecione um template para o seu projeto:",
+    "blank": "Blank (JavaScript)",
+    "blankTs": "Blank (TypeScript) - App em branco com TypeScript habilitado",
+    "tawild": "Tailwind (JavaScript)",
+    "tawildTs": "Tailwind (TypeScript) - App Tailwind com TypeScript habilitado"
+  },
   "error": {
     "default": "erro:",
     "alreadyExists": "Eita, parece que esse projeto já existe ali!",
