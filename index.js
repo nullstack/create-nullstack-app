@@ -13,14 +13,15 @@ program
 program.parse();
 
 const { template } = program.opts();
-const projectName = program.args.map(n => n.trim()).filter(n => n).join('_');
-
-if (!projectName) {
-  console.log(`${i18n.error.unvalidName}\n`);
-  program.help();
-}
+let projectName = program.args.map(n => n.trim()).filter(n => n).join('_');
 
 inquirer.prompt([
+  {
+    type: 'input',
+    name: 'projectName',
+    message: i18n.questionName,
+    when: () => !projectName
+  },
   {
     type: 'list',
     name: 'template',
@@ -52,6 +53,8 @@ inquirer.prompt([
         isTailwind = true;
         break;
     }
+
+    projectName = (projectName || answers.projectName).replace(/ /g, '_').trim();
 
     Nulla.tryRun(projectName, isTS, isTailwind);
   });
