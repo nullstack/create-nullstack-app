@@ -8,11 +8,9 @@ const { version } = require('./package.json');
 program
   .name('create-nullstack-app')
   .version(version, '-v, --version', version)
-  .option('-t, --template', "Select a template to use", false);
 
 program.parse();
 
-const { template } = program.opts();
 let projectName = program.args.map(n => n.trim()).filter(n => n).join('_');
 
 inquirer.prompt([
@@ -32,7 +30,6 @@ inquirer.prompt([
       i18n.template.tawild,
       i18n.template.tawildTs,
     ],
-    when: () => template
   },
 ])
   .then((answers) => {
