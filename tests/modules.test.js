@@ -143,9 +143,8 @@ describe("functions using filesystem", () => {
   });
 
   test(
-    'tryRun() should close rl, run() and throw if project already exists',
+    'tryRun() should call run() and throw if project already exists',
     async () => {
-      const rl = { close: jest.fn() };
       const mockedRun = jest.spyOn(Nulla, 'run');
       mock({
         [path.join(__dirname, '../Project')]: {},
@@ -154,16 +153,16 @@ describe("functions using filesystem", () => {
         }
       });
 
-      Nulla.tryRun(rl, 'Project', false, false);
-      expect(rl.close).toBeCalled();
+      Nulla.tryRun('Project', false, false);
       expect(Nulla.run).toBeCalledWith(
         getNamesObject('Project', 'project', 'Project'),
+        false,
         false
       );
 
       mockedRun.mockRestore();
       Nulla.errorHandler = jest.fn();
-      Nulla.tryRun(rl, 'Project', false, false);
+      Nulla.tryRun('Project', false, false);
 
       expect(Nulla.errorHandler).toBeCalled();
     });

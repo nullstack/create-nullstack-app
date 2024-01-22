@@ -181,9 +181,8 @@ Nulla.errorHandler = (e) => {
   }
 };
 
-Nulla.tryRun = (rl, name, isTS, isTailwind) => {
+Nulla.tryRun = (name, isTS, isTailwind) => {
   try {
-    rl.close();
     const names = Nulla.storeNames(name);
     Nulla.run(names, isTS, isTailwind);
   } catch (e) {
