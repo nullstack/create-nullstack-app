@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const packageFolder = __dirname;
+const whitelist = ['package', 'webpack', 'tailwind.config']
 
 let lang = Intl.DateTimeFormat().resolvedOptions().locale;
 lang = (lang === 'pt-BR' || lang === 'en-US')
@@ -72,7 +73,7 @@ const replaceLangs = (content) => {
   return content;
 };
 
-Nulla.run = (names, isTS, isTailwind) => {
+Nulla.run = (names, isTS, isTailwind, tailwindVersion = 'v3') => {
   const { projectSlug, projectName } = names;
   const projectPath = path.join(process.cwd(), projectSlug);
 
@@ -92,23 +93,27 @@ Nulla.run = (names, isTS, isTailwind) => {
   // Tailwind check, remove all default files and replace them with Tailwind defaults
   if (isTailwind)
     for (const file of Files.files) {
-      if (file.includes(".tailwind")) {
+      if (file.includes(".tailwind") && tailwindVersion === 'v3' && !file.includes('-v4')) {
         tailwindReplace.push(file.replace(".tailwind", ""))
       }
+      else if(file.includes('.tailwind') && tailwindVersion === 'v4' && (file.includes('-v4') ||!whitelist.some(x => file.includes(x))) )
+        tailwindReplace.push(file.replace(".tailwind-v4", "").replace(".tailwind", ""))
     }
-
+    
   for (const file of Files.files) {
     if (file.match(new RegExp(`.${isTS ? 'js' : 'ts'}x?$`)) && file.indexOf('.config.') === -1) continue;
     if (!isTS && /tsconfig.json/.test(file)) continue;
 
     // Tailwind replacer
     if (isTailwind) {
-
+      if(tailwindVersion === 'v3' && file.includes('-v4')) continue;
+      if(tailwindVersion === 'v4' && whitelist.some(x => file.includes(x) && !file.includes('-v4')) ) continue;
       // Check if the file is going to be replaced by tailwind file
       if (tailwindReplace.includes(file)) continue;
 
       // Do not include css files unless they're supposed to be included
-      if (file.endsWith(".css") && !file.includes("tailwind.")) continue;
+      if (file.endsWith(".css") && !file.includes("tailwind.") && tailwindVersion === 'v3') continue;
+      if(file.endsWith(".css") && tailwindVersion === 'v4' && !file.includes('-v4')) continue
 
     } else if (file.includes("tailwind")) continue; // If it is not tailwind, do not add tailwind files to the bundle
 
@@ -118,7 +123,7 @@ Nulla.run = (names, isTS, isTailwind) => {
     );
     content = Nulla.contentReplacer(content, 'NAME', projectName);
     content = Nulla.contentReplacer(content, 'SLUG', projectSlug);
-    const target = path.join(projectPath, file.replace('_', '.').replace('.tailwind', ''));
+    const target = path.join(projectPath, file.replace('_', '.').replace('.tailwind-v4', '').replace('.tailwind', '').replace("-v4", ""));
     content = Nulla.contentReplacer(content, 'SRC', srcFolder);
     content = Nulla.contentReplacer(content, 'LANG', lang);
     content = replaceLangs(content);
@@ -181,10 +186,10 @@ Nulla.errorHandler = (e) => {
   }
 };
 
-Nulla.tryRun = (name, isTS, isTailwind) => {
+Nulla.tryRun = (name, isTS, isTailwind, tailwindVersion) => {
   try {
     const names = Nulla.storeNames(name);
-    Nulla.run(names, isTS, isTailwind);
+    Nulla.run(names, isTS, isTailwind, tailwindVersion);
   } catch (e) {
     Nulla.errorHandler(e);
   }

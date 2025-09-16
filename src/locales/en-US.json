@@ -5,7 +5,8 @@
     "blank": "Blank (JavaScript)",
     "blankTs": "Blank (TypeScript) - blank app with TypeScript enabled",
     "tawild": "Tailwind (JavaScript)",
-    "tawildTs": "Tailwind (TypeScript) - Tailwind app with TypeScript enabled"
+    "tawildTs": "Tailwind v3 (TypeScript) - Tailwind v3 app with TypeScript enabled",
+    "tawildv4Ts": "Tailwind v4 (TypeScript) - Tailwind v4 app with TypeScript enabled"
   },
   "error": {
     "default": "error:",
