@@ -28,6 +28,7 @@ inquirer.prompt([
       i18n.template.blank,
       i18n.template.blankTs,
       i18n.template.tawild,
+      i18n.template.tawildv4,
       i18n.template.tawildTs,
       i18n.template.tawildv4Ts,
     ],
@@ -47,6 +48,11 @@ inquirer.prompt([
       case i18n.template.tawild:
         isTailwind = true;
         break;
+
+      case i18n.template.tawildv4:
+          isTailwind = true;
+          tailwindVersion = "v4";
+          break;
 
       case i18n.template.tawildTs:
         isTS = true;
