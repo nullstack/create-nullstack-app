@@ -28,13 +28,17 @@ inquirer.prompt([
       i18n.template.blank,
       i18n.template.blankTs,
       i18n.template.tawild,
+      i18n.template.tawildv4,
       i18n.template.tawildTs,
+      i18n.template.tawildv4Ts,
     ],
   },
 ])
   .then((answers) => {
     let isTS = false;
     let isTailwind = false;
+    let tailwindVersion = 'v3'
+
 
     switch (answers.template) {
       case i18n.template.blankTs:
@@ -45,13 +49,25 @@ inquirer.prompt([
         isTailwind = true;
         break;
 
+      case i18n.template.tawildv4:
+          isTailwind = true;
+          tailwindVersion = "v4";
+          break;
+
       case i18n.template.tawildTs:
         isTS = true;
         isTailwind = true;
+        tailwindVersion = 'v3'
+        break;
+
+      case i18n.template.tawildv4Ts:
+        isTS = true;
+        isTailwind = true;
+        tailwindVersion = 'v4';
         break;
     }
 
     projectName = (projectName || answers.projectName).replace(/ /g, '_').trim();
 
-    Nulla.tryRun(projectName, isTS, isTailwind);
+    Nulla.tryRun(projectName, isTS, isTailwind, tailwindVersion);
   });
